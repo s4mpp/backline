@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx @tailwindcss/cli -i ./assets/src/input.css -o ./vendor/orchestra/testbench-core/laravel/public/vendor/backline/css/style.css --watch",
-    "build": "npx @tailwindcss/cli -i ./assets/src/input.css -o ./assets/dist/css/style.css --minify && npx vite build"
+    "build": "npx @tailwindcss/cli -i ./assets/src/input.css -o ./assets/dist/css/style.css --minify && npx vite build && composer publish"
   },
   "author": "",
   "license": "ISC",

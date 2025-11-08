@@ -1,58 +1,142 @@
-@extends('backline.layout.html')
+@extends('backline::layout.html')
 
 @section('body')
-	<div class="w-full ">
-		<div class="w-full flex items-center justify-between">
-			<div class="px-6 flex justify-start items-center gap-6 ">
-				<h1 class="text-white text-lg "><a href="{{ route('admin.dashboard') }}"><strong>{{ config('app.name') }}</strong></a></h1>
+	<div class="scrollbar-track-gray-200 h-full" x-data="{mobileMenuOpen: false}">
+		<header class="flex justify-between items-center bg-gray-800">
+			<div class="inline-flex items-center gap-4 px-6">
+				<a href="{{ route('admin.home.index') }}" class="h-12 flex items-center">
+					@if($logo = config('backline.logo'))
+						<img class="h-5 w-auto mx-auto object-scale-down" src="{{ asset($logo) }}" alt="{{ env('APP_NAME') }}">
+					@else
+						<h1 class="text-white truncate">{{ env('APP_NAME')  }}</h1>
+					@endif
+				</a>
 
-				<div class="inline-flex ">
-					<div x-data="{dropdown : false, toggleDropdown() {this.dropdown = !this.dropdown}}">
-						<button x-bind:class="dropdown ? 'bg-white/10' : '' " x-on:click="toggleDropdown()" class=" h-10 px-6 gap-2 items-center cursor-pointer py-0 text-sm inline-flex text-white">
-							<span class="text-nowrap">Ferramentas</span>
-							<span class="text-xs">&#x25BC;</span>
+				{{-- <div x-data="{megaMenuOpen: false}">
+					<div class=" inline-flex items-center gap-1">
+						<button class="h-[50px] px-3 hover:bg-black/10 focus:bg-black/10 transition-colors inline-flex gap-2 items-center" x-on:click="megaMenuOpen = !megaMenuOpen">
+							@isset($current_module)
+								<div class="inline-flex items-center gap-2" style="color: {{ $current_module->getColor() }}">
+									<div class="p-1 text-white w-8 flex items-center justify-center h-8 text-sm" style="background-color: {{ $current_module->getColor() }};">
+										<i class="fa fa-{{ $current_module->getIcon() }}"></i>
+									</div>
+									<span class="text-sm hidden lg:block text-white">{{ $current_module->getTitle() }}</span>
+								</div>
+							@else
+								<div class="inline-flex items-center gap-2">
+									<div class="p-1 text-white w-8 flex items-center justify-center h-8 text-sm bg-gray-600">
+										<i class="fa fa-grip "></i>
+									</div>
+								</div>
+							@endisset
+							<i class="fa fa-chevron-down text-white/60 text-xs"></i>
 						</button>
+					</div>
 
-						<div
-							x-on:click.outside="dropdown = false"
-							class="bg-white z-50 absolute shadow max-w-[240px] text-black w-full left-auto" x-cloak x-transition x-show="dropdown">
-							
-							<div class="flex-col w-full text-gray-800 text-sm ">
-								<a href="{{ route('admin.tools.file-rfb') }}" class="w-full truncate py-2 block px-6 hover:bg-gray-50">Geração de arquivo para RFB</a>
-							</div>
+					<div x-cloak x-transition class="bg-white p-6 absolute z-50  shadow-lg top-[50px] w-full sm:w-auto left-0 sm:left-auto" x-show="megaMenuOpen">
+						<div class="grid grid-cols-3 gap-2">
+							<x-admin::modules :modules="$modules" />
 						</div>
 					</div>
-				</div>
+				</div> --}}
 			</div>
-			<div>
-				<form action="{{ route('admin.logout') }}" method="POST">
-					@csrf
 
-					<button type="submit" class="bg-red-700 px-6 py-2  text-white cursor-pointer transition-colors hover:bg-red-600 ">
-						<span class="text-sm  font-semibold">Sair</span>
-					</button>
-				</form>
+			<div class="relative flex items-center">
+				<div>
+					<form action="{{ route('admin.logout') }}" method="POST">
+						@csrf
+	
+						<x-blix::ui.button type="submit" class="h-12 border-transparent focus:ring-0 text-white bg-red-500 hover:bg-red-600">
+							<span class="text-sm  font-semibold">Sair</span>
+						</x-blix::ui.button>
+					</form>
+				</div>
+				{{-- <x-element::dropdown position="right">
+					<x-slot:button class="">
+						<button	x-on:click="toggleDropdown()" type="button" class="transition-colors hover:bg-black/10 focus:bg-black/10 pl-3 h-[50px]  pr-3 flex items-center px-1.5" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+
+							<div class="h-7 w-7 flex items-center justify-center  rounded-full bg-white/10">
+								<i class="fa fa-user-circle text-gray-200"></i>
+							</div>
+
+							<span class="hidden lg:flex lg:items-center gap-1">
+								<div class="flex mx-2 flex-col items-start leading-tight text-white">
+									<span class="text-[12px] font-semibold ">{{ auth()->guard(AdminPanel::getGuardName())->user()->name }}</span>
+									<span class="text-[10px] ">{{ auth()->guard(AdminPanel::getGuardName())->user()->email }}</span>
+								</div>
+
+								<i class="fa fa-chevron-down text-white/60 text-xs"></i>
+							</span>
+						</button>
+					</x-slot:button>
+
+					<x-slot:body class="min-w-[230px]">
+						<div class="divide-y divide-gray-200 dark:divide-gray-500/80">
+							<div class="px-4 py-3 " role="none">
+								<p class="text-sm " role="none">{{ auth()->guard(config('admin.guard', 'web'))->user()->name }}</p>
+								<p class="truncate text-sm font-medium text-gray-900 dark:text-gray-100" role="none">{{ auth()->guard(config('admin.guard', 'web'))->user()->email }}</p>
+							</div>
+							<div>
+								@can('AdminConfig.x.config.permissions')
+									<x-element::dropdown.link href="{{ route('admin.roles-and-permissions') }}">
+										<i class="fa fa-user-shield text-gray-500"></i>
+										<span>Permissões</span>
+									</x-element::dropdown.link>
+								@endcan
+
+								@can('AdminConfig.x.config.users')
+									<x-element::dropdown.link href="{{ route('admin.users') }}">
+										<i class="fa fa-users text-gray-500"></i>
+										<span>Usuários</span>
+									</x-element::dropdown.link>
+								@endcan
+
+								@if(AdminPanel::saveLogsInDatabase())
+									@can('AdminConfig.x.config.logs')
+										<x-element::dropdown.link href="{{ route('admin.logs') }}">
+											<i class="fa fa-clock-rotate-left text-gray-500"></i>
+											<span>Logs de atividade</span>
+										</x-element::dropdown.link>
+									@endcan
+								@endif
+							</div>
+
+							<x-element::dropdown.link :danger=true href="{{ route('admin.logout') }}" class="justify-between">
+								<span>Sair</span>
+								<i class="fa fa-sign-out"></i>
+							</x-element::dropdown.link>
+						</div>
+					</x-slot:body>
+				</x-element::dropdown> --}}
+			</div>
+		</header>
+
+		<div class="bg-white px-6 py-2 border-b border-gray-300 flex items-center justify-start gap-3">
+			{{-- @if($current_module)
+				<button class="lg:hidden inline-flex items-center justify-center w-6 h-6 rounded-full border border-gray-400" x-on:click="mobileMenuOpen = !mobileMenuOpen">
+					<i class="fa fa-bars text-gray-500 text-xs"></i>
+				</button>
+			@endif --}}
+
+			<div class="inline-flex max-w-full items-center md:gap-2">
+				<a href="{{ route('admin.home.index') }}" class="text-gray-400 hover:text-gray-500 inline-flex">
+					<i class="fa fa-home text-gray-500 text-xs"></i>
+				</a>
+
+				{{-- @isset($breadcrumbs)
+					@foreach($breadcrumbs as $breadcrumb)
+						<i class="fa fa-chevron-right text-gray-500 text-xs"></i>
+						<span class="text-sm font-medium truncate text-gray-600">{{ $breadcrumb }}</span>
+					@endforeach
+				@endisset --}}
+
+				<i class="fa fa-chevron-right text-gray-500 text-xs"></i>
+				<span class="text-sm font-medium truncate text-gray-600">@yield('title')</span>
 			</div>
 		</div>
-	</div>
 
-	<div class="w-full ">
-		<div class="w-full px-6 py-4">
-			<div class="flex justify-between items-center mb-3 border-b border-gray-300 pb-3">
-				<h2 class="text-lg font-semibold">@yield('title')</h2>
-				<div class="flex gap-2">
-					@yield('actions')
-				</div>
-			</div>
-
-			<div class="mb-3">
-				{{-- <x-element::message.flash /> --}}
-				{{-- <x-element::message.error /> --}}
-			</div>
-
-			<main>
-				@yield('content')
-			</main>
-		</div>
+		<main class="h-[calc(100vh-94px)]">
+			@yield('content')
+		</main>
 	</div>
 @endsection

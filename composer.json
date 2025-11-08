@@ -47,7 +47,9 @@
     "autoload-dev": {
         "psr-4": {
             "S4mpp\\Backline\\Tests\\": "tests",
-            "Workbench\\App\\": "workbench/app/"
+            "Workbench\\App\\": "workbench/app/",
+            "Database\\Factories\\": "workbench/database/factories/",
+            "Database\\Seeders\\": "workbench/database/seeders/"
         }
     },
     "scripts": {
@@ -59,14 +61,16 @@
         ],
         "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
-        "build": [
-            "@php vendor/bin/testbench workbench:build --ansi",
-            "vendor/bin/testbench vendor:publish --tag=backline-assets --force --ansi"
-        ],
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "publish": "@php vendor/bin/testbench vendor:publish --tag=backline-assets",
         "serve": [
             "Composer\\Config::disableProcessTimeout",
             "@build",
             "@php vendor/bin/testbench serve --ansi"
+        ],
+        "lint": [
+            "@php vendor/bin/pint --ansi",
+            "@php vendor/bin/phpstan analyse --verbose --ansi"
         ]
     },
     "config": {

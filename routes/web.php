@@ -16,8 +16,8 @@ use S4mpp\AdminPanel\Builders\ReportBuilder;
 use S4mpp\AdminPanel\Middleware\CustomAction;
 use S4mpp\Backline\Middleware\RestrictedArea;
 use S4mpp\Backline\Controllers\AuthController;
+use S4mpp\Backline\Controllers\HomeController;
 use S4mpp\AdminPanel\Controllers\LogController;
-use S4mpp\AdminPanel\Controllers\HomeController;
 use S4mpp\AdminPanel\Controllers\PageController;
 use S4mpp\AdminPanel\Controllers\ReadController;
 use S4mpp\AdminPanel\Controllers\UserController;
@@ -93,9 +93,9 @@ $route->group(function (): void {
         //     });
         // });
 
-        // Route::middleware($additional_middlewares)->group(function (): void {
+        Route::middleware($additional_middlewares)->group(function (): void {
 
-        //     Route::get('/home', HomeController::class)->name('admin.home.index');
+            Route::get('/home', HomeController::class)->name('admin.home.index');
 
         //     Route::middleware(Module::class)->group(function (): void {
         //         foreach (AdminPanel::getModules() as $module) {
@@ -183,6 +183,6 @@ $route->group(function (): void {
         //             }
         //         });
         //     });
-        // });
+        });
     });
 });
