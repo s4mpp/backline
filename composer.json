@@ -1,0 +1,82 @@
+{
+    "name": "s4mpp/backline",
+    "description": "Modern and modular Admin Panel for Laravel",
+    "keywords": [
+        "s4mpp",
+        "backline"
+    ],
+    "homepage": "https://github.com/s4mpp/backline",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "s4mpp",
+            "email": "s4mpp.dev2@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/support": "^11.0|^12.0",
+        "s4mpp/laravel-auth-suite": "^1.0",
+        "s4mpp/blix-ui": "dev-master"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0",
+        "s4mpp/laragenius": "^2.0"
+    },
+    "repositories": [
+        {
+            "type": "github",
+            "url": "https://github.com/s4mpp/laravel-auth-suite"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/s4mpp/laragenius"
+        },
+        {
+            "type": "github",
+            "url": "https://github.com/s4mpp/blix-ui"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "S4mpp\\Backline\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "S4mpp\\Backline\\Tests\\": "tests",
+            "Workbench\\App\\": "workbench/app/"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": [
+            "@php vendor/bin/testbench workbench:build --ansi",
+            "vendor/bin/testbench vendor:publish --tag=backline-assets --force --ansi"
+        ],
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve --ansi"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "S4mpp\\Backline\\BacklineServiceProvider"
+            ]
+        }
+    }
+}

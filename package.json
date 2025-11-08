@@ -1,0 +1,20 @@
+{
+  "name": "backline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx @tailwindcss/cli -i ./assets/src/input.css -o ./vendor/orchestra/testbench-core/laravel/public/vendor/backline/css/style.css --watch",
+    "build": "npx @tailwindcss/cli -i ./assets/src/input.css -o ./assets/dist/css/style.css --minify && npx vite build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "alpinejs": "^3.15.1",
+    "tailwindcss": "^4.1.16"
+  },
+  "devDependencies": {
+    "vite": "^7.2.2"
+  }
+}
