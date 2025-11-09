@@ -16,7 +16,7 @@ final class AuthController extends Controller
     public function login()
     {
         if (Auth::guard(Backline::getGuardName())->check()) {
-            return to_route('admin.home.index');
+            return to_route('backline.home.index');
         }
 
         return view('backline::auth.login');
@@ -46,7 +46,7 @@ final class AuthController extends Controller
             throw ValidationException::withMessages(['invalid_credentials' => 'E-mail ou senha inválidos. Tente novamente.']);
         }
 
-        return to_route('admin.home.index');
+        return to_route('backline.home.index');
     }
 
     // TODO post

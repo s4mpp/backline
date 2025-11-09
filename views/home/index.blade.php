@@ -1,7 +1,7 @@
-@extends('backline::layout.restricted-area')
+@extends('backline::layout.main')
 
 @section('title', 'Início')
 
-@section('content')
+@section('main')
 
 @endsection

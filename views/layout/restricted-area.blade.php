@@ -1,49 +1,17 @@
 @extends('backline::layout.html')
 
 @section('body')
-	<div class="scrollbar-track-gray-200 h-full" x-data="{mobileMenuOpen: false}">
+	<div class="scrollbar-track-gray-200 h-full">
 		<header class="flex justify-between items-center bg-gray-800">
 			<div class="inline-flex items-center gap-4 px-6">
-				<a href="{{ route('admin.home.index') }}" class="h-12 flex items-center">
-					@if($logo = config('backline.logo'))
-						<img class="h-5 w-auto mx-auto object-scale-down" src="{{ asset($logo) }}" alt="{{ env('APP_NAME') }}">
-					@else
-						<h1 class="text-white truncate">{{ env('APP_NAME')  }}</h1>
-					@endif
+				<a href="{{ route('backline.home.index') }}" class="h-12 flex items-center">
+					<h1 class="text-white truncate">{{ config('app.name')  }}</h1>
 				</a>
-
-				{{-- <div x-data="{megaMenuOpen: false}">
-					<div class=" inline-flex items-center gap-1">
-						<button class="h-[50px] px-3 hover:bg-black/10 focus:bg-black/10 transition-colors inline-flex gap-2 items-center" x-on:click="megaMenuOpen = !megaMenuOpen">
-							@isset($current_module)
-								<div class="inline-flex items-center gap-2" style="color: {{ $current_module->getColor() }}">
-									<div class="p-1 text-white w-8 flex items-center justify-center h-8 text-sm" style="background-color: {{ $current_module->getColor() }};">
-										<i class="fa fa-{{ $current_module->getIcon() }}"></i>
-									</div>
-									<span class="text-sm hidden lg:block text-white">{{ $current_module->getTitle() }}</span>
-								</div>
-							@else
-								<div class="inline-flex items-center gap-2">
-									<div class="p-1 text-white w-8 flex items-center justify-center h-8 text-sm bg-gray-600">
-										<i class="fa fa-grip "></i>
-									</div>
-								</div>
-							@endisset
-							<i class="fa fa-chevron-down text-white/60 text-xs"></i>
-						</button>
-					</div>
-
-					<div x-cloak x-transition class="bg-white p-6 absolute z-50  shadow-lg top-[50px] w-full sm:w-auto left-0 sm:left-auto" x-show="megaMenuOpen">
-						<div class="grid grid-cols-3 gap-2">
-							<x-admin::modules :modules="$modules" />
-						</div>
-					</div>
-				</div> --}}
 			</div>
 
 			<div class="relative flex items-center">
 				<div>
-					<form action="{{ route('admin.logout') }}" method="POST">
+					<form action="{{ route('backline.logout') }}" method="POST">
 						@csrf
 	
 						<x-blix::ui.button type="submit" class="h-12 border-transparent focus:ring-0 text-white bg-red-500 hover:bg-red-600">
@@ -119,7 +87,7 @@
 			@endif --}}
 
 			<div class="inline-flex max-w-full items-center md:gap-2">
-				<a href="{{ route('admin.home.index') }}" class="text-gray-400 hover:text-gray-500 inline-flex">
+				<a href="{{ route('backline.home.index') }}" class="text-gray-400 hover:text-gray-500 inline-flex">
 					<i class="fa fa-home text-gray-500 text-xs"></i>
 				</a>
 

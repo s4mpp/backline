@@ -63,9 +63,13 @@
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": "@php vendor/bin/testbench workbench:build --ansi",
         "publish": "@php vendor/bin/testbench vendor:publish --tag=backline-assets",
+        "create-config": [
+            "cp workbench/config/backline.php vendor/orchestra/testbench-core/laravel/config"
+        ],
         "serve": [
             "Composer\\Config::disableProcessTimeout",
             "@build",
+            "@create-config",
             "@php vendor/bin/testbench serve --ansi"
         ],
         "lint": [

@@ -9,8 +9,8 @@ use S4mpp\AdminPanel\Middleware\Page;
 use Illuminate\Support\Facades\Config;
 use S4mpp\AdminPanel\Middleware\Module;
 use S4mpp\AdminPanel\Middleware\Report;
+use S4mpp\Backline\Middleware\Resource;
 use S4mpp\AdminPanel\Middleware\Section;
-use S4mpp\AdminPanel\Middleware\Resource;
 use S4mpp\AdminPanel\Builders\PageBuilder;
 use S4mpp\AdminPanel\Builders\ReportBuilder;
 use S4mpp\AdminPanel\Middleware\CustomAction;
@@ -27,14 +27,14 @@ use S4mpp\AdminPanel\Controllers\CreateController;
 use S4mpp\AdminPanel\Controllers\DeleteController;
 use S4mpp\AdminPanel\Controllers\ReportController;
 use S4mpp\AdminPanel\Controllers\UpdateController;
+use S4mpp\Backline\Controllers\ResourceController;
 use S4mpp\AdminPanel\Controllers\ContextController;
-use S4mpp\AdminPanel\Controllers\ResourceController;
-use S4mpp\AdminPanel\Resource as AdminPanelResource;
 use S4mpp\AdminPanel\Controllers\DashboardController;
 use S4mpp\AdminPanel\Controllers\DuplicateController;
 use S4mpp\AdminPanel\Controllers\AutomationController;
 use S4mpp\AdminPanel\Controllers\IntegrationController;
 use S4mpp\AdminPanel\Controllers\CustomActionController;
+use S4mpp\Backline\Concerns\Resource as BackLineResource;
 use S4mpp\AdminPanel\Controllers\RoleAndPermissionController;
 
 Route::aliasMiddleware('restricted-area', RestrictedArea::class);
@@ -54,14 +54,14 @@ $route->group(function (): void {
 
     Route::controller(AuthController::class)->group(function (): void {
 
-        Route::get('/', 'login')->name('admin.login');
-        Route::post('/', 'auth')->name('admin.auth');
-        Route::post('/sair', 'logout')->name('admin.logout');
+        Route::get('/', 'login')->name('backline.login');
+        Route::post('/', 'auth')->name('backline.auth');
+        Route::post('/sair', 'logout')->name('backline.logout');
     });
 
     Route::middleware('restricted-area:'.Backline::getGuardName())->group(function (): void {
 
-        $additional_middlewares = Config::get('admin.middlewares', []);
+        $additional_middlewares = Config::get('backline.middlewares', []);
 
         // Route::prefix('/sistema')->middleware($additional_middlewares)->group(function (): void {
 
@@ -95,27 +95,27 @@ $route->group(function (): void {
 
         Route::middleware($additional_middlewares)->group(function (): void {
 
-            Route::get('/home', HomeController::class)->name('admin.home.index');
+            Route::get('/home', HomeController::class)->name('backline.home.index');
 
         //     Route::middleware(Module::class)->group(function (): void {
         //         foreach (AdminPanel::getModules() as $module) {
         //             Route::get($module->getSlug(), [HomeController::class, 'section'])->name('admin.section.'.$module->getSlug());
         //         }
 
-        //         Route::middleware(Resource::class)->group(function (): void {
+                Route::middleware(Resource::class)->group(function (): void {
 
-        //             $resources = AdminPanel::getResources();
+                    $resources = Backline::getResources();
 
-        //             /** @var AdminPanelResource $resource */
-        //             foreach ($resources as $resource) {
+                    /** @var BackLineResource $resource */
+                    foreach ($resources as $resource) {
 
-        //                 $r = new $resource;
+                        $r = new $resource;
 
-        //                 $section = $r->getSection();
+                        $section = $r->getSection();
 
-        //                 Route::prefix($section.'/'.$resource::getSlug())->group(function () use ($r, $resource): void {
+                        Route::prefix($section.'/'.$resource::getSlug())->group(function () use ($r, $resource): void {
 
-        //                     Route::get('/', [ResourceController::class, 'index'])->middleware('can:'.$resource::getPermissionName('resource', 'index'))->name($resource::getRouteName('action', 'index'));
+                            Route::get('/', [ResourceController::class, 'index'])->name($resource::getRouteName('action', 'index'));
         //                     Route::get('/exportar/{format}', [ResourceController::class, 'export'])->middleware('can:'.$resource::getPermissionName('resource', 'export'))->name($resource::getRouteName('export'));
 
         //                     foreach((new ReportBuilder)->collect($r)->getItems() as $report)
@@ -179,10 +179,10 @@ $route->group(function (): void {
         //                         Route::get('/pagina/'.$page->getSlug(), [PageController::class, 'index'])->middleware(Page::class)->name($resource::getRouteName('page', $page->getSlug()));
         //                     }
                             
-        //                 });
-        //             }
-        //         });
-        //     });
+                        });
+                    }
+                // });
+            });
         });
     });
 });

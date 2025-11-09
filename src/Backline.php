@@ -20,33 +20,33 @@ abstract class Backline
     //     return $context_config;
     // }
 
-    // public static function getResources(): array
-    // {
-    //     $path = Config::get('admin.resources_path', app_path('AdminPanel')).'/Resources';
+    public static function getResources(): array
+    {
+        $path = Config::get('backline.resources_path', app_path('AdminPanel')).'/Resources';
 
-    //     if (! File::exists($path)) {
-    //         return [];
-    //     }
+        if (! File::exists($path)) {
+            return [];
+        }
+        
+        $resources = [];
 
-    //     $namespace = Config::get('admin.namespace', 'App');
+        foreach (File::allFiles($path) as $file) {
+            $name = str_replace('Resource.php', '', $file->getFilename());
 
-    //     $resources = [];
+            $resources[$name] = self::getResource($name);
+        }
 
-    //     foreach (File::allFiles($path) as $file) {
-    //         $name = str_replace('.php', '', $file->getFilename());
+        return $resources;
+    }
 
-    //         $resources[str_replace('Resource', '', $name)] = $namespace.'\\AdminPanel\\Resources\\'.$name;
-    //     }
+    public static function getResource(string $name)
+    {
+        $namespace = Config::get('backline.namespace', 'App');
 
-    //     return $resources;
-    // }
+        return $namespace.'\\AdminPanel\\Resources\\'.$name.'Resource';
+    }
 
-    // public static function getResource(string $name)
-    // {
-    //     $namespace = Config::get('admin.namespace', 'App');
 
-    //     return $namespace.'\\AdminPanel\\Resources\\'.$name.'Resource';
-    // }
 
     // public static function createModule(string $title, int $order = 0, ?string $color = null, string $icon = 'squares-2x2'): void
     // {
