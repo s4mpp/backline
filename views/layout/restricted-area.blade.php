@@ -91,12 +91,12 @@
 					<i class="fa fa-home text-gray-500 text-xs"></i>
 				</a>
 
-				{{-- @isset($breadcrumbs)
+				@isset($breadcrumbs)
 					@foreach($breadcrumbs as $breadcrumb)
 						<i class="fa fa-chevron-right text-gray-500 text-xs"></i>
 						<span class="text-sm font-medium truncate text-gray-600">{{ $breadcrumb }}</span>
 					@endforeach
-				@endisset --}}
+				@endisset
 
 				<i class="fa fa-chevron-right text-gray-500 text-xs"></i>
 				<span class="text-sm font-medium truncate text-gray-600">@yield('title')</span>

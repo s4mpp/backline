@@ -22,7 +22,7 @@ abstract class Backline
 
     public static function getResources(): array
     {
-        $path = Config::get('backline.resources_path', app_path('AdminPanel')).'/Resources';
+        $path = Config::get('backline.resources_path', app_path('Backline')).'/Resources';
 
         if (! File::exists($path)) {
             return [];
@@ -41,9 +41,9 @@ abstract class Backline
 
     public static function getResource(string $name)
     {
-        $namespace = Config::get('backline.namespace', 'App');
+        $namespace = Config::get('backline.app_namespace', 'App\\');
 
-        return $namespace.'\\AdminPanel\\Resources\\'.$name.'Resource';
+        return $namespace.'\\Backline\\Resources\\'.$name.'Resource';
     }
 
 
@@ -67,9 +67,9 @@ abstract class Backline
         return Config::get('backline.guard', 'web');
     }
 
-    public static function getRoutePrefix(): ?string
+    public static function getRoutePrefix(): string
     {
-        return Config::get('backline.prefix');
+        return Config::get('backline.prefix', 'backline');
     }
 
     public static function getDomain(): ?string

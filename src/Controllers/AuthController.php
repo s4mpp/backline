@@ -49,13 +49,12 @@ final class AuthController extends Controller
         return to_route('backline.home.index');
     }
 
-    // TODO post
     public function logout()
     {
         $guard_name = Backline::getGuardName();
 
         (new Logout($guard_name))->handle();
 
-        return to_route('admin.login')->with('message', 'Você saiu do sistema.');
+        return to_route('backline.login');
     }
 }

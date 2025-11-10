@@ -68,8 +68,8 @@
         ],
         "serve": [
             "Composer\\Config::disableProcessTimeout",
-            "@build",
             "@create-config",
+            "@build",
             "@php vendor/bin/testbench serve --ansi"
         ],
         "lint": [

@@ -7,5 +7,5 @@
 @endsection
 
 @section('main')
-	
+	@yield('index')
 @endsection

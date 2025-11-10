@@ -1,0 +1,28 @@
+@extends('backline::resources.index')
+
+@section('index')
+	<div class="overflow-x-auto">
+		<table class="w-full">
+			<thead class="border-0 text-left bg-gray-200">
+				<tr class="divide-x divide-gray-200">
+					@foreach($columns as $column)
+						<th class="px-4 py-2 text-sm font-semibold text-gray-700 whitespace-nowrap">{{ $column->getTitle() }}</th>
+					@endforeach
+				</tr>
+			</thead>
+			<tbody>
+				@foreach($registers as $register)
+					<tr class="odd:bg-gray-100/30 even:bg-gray-200/50">
+						@foreach($columns as $column)
+							@php
+								$column->setContentFromRegister($register);
+							@endphp
+							
+							<td class="px-4 py-2 text-sm text-gray-700 whitespace-nowrap">{{ $column->getOriginalContent() }}</td>
+						@endforeach
+					</tr>
+				@endforeach
+			</tbody>
+		</table>
+	</div>
+@endsection

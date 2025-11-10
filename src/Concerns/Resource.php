@@ -7,6 +7,7 @@ use S4mpp\AdminPanel\Enums\Action;
 use S4mpp\AdminPanel\Support\Filter;
 use S4mpp\AdminPanel\Traits\Titleable;
 use Illuminate\Database\Eloquent\Model;
+use S4mpp\Backline\Builders\TableBuilder;
 use S4mpp\AdminPanel\Builders\PageBuilder;
 use S4mpp\AdminPanel\Support\CustomAction;
 use S4mpp\AdminPanel\Builders\ReportBuilder;
@@ -31,7 +32,7 @@ class Resource
 
     // protected static array $actions = [];
 
-    protected static ?int $menu_order = null;
+    protected static int $menu_order = 0;
 
     public static function badge(): int|float|string|null
     {
@@ -53,7 +54,7 @@ class Resource
     //     return static::$label;
     // }
 
-    final public static function getMenuOrder(): ?int
+    final public static function getMenuOrder(): int
     {
         return static::$menu_order;
     }
@@ -78,10 +79,11 @@ class Resource
         return static::$section;
     }
 
-    // final public static function getSectionLabel(): ?string
-    // {
-    //     return AdminPanel::getModules()[self::getSection()]?->getTitle() ?? null;
-    // }
+    final public static function getSectionLabel(): ?string
+    {
+        return self::getSection();
+        // return AdminPanel::getModules()[self::getSection()]?->getTitle() ?? null;
+    }
 
     // // /**
     // //  * @return array<string>
@@ -135,17 +137,17 @@ class Resource
     // // // 	return null;
     // // // }
 
-    // final public function getModel(): Model
-    // {
-    //     $model = config('admin.namespace', '\App').'\\Models\\'.$this->getName();
+    final public function getModel(): Model
+    {
+        $model = config('backline.app_namespace', '\App').'\\Models\\'.$this->getName();
 
-    //     if (! class_exists($model)) {
-    //         throw new \Exception('Model "'.$model.'" not found');
-    //     }
+        if (! class_exists($model)) {
+            throw new \Exception('Model "'.$model.'" not found');
+        }
 
-    //     /** @var Model */
-    //     return app($model);
-    // }    
+        /** @var Model */
+        return app($model);
+    }    
 
     // /**
     //  * @deprecated use Builder::collect($resource)
@@ -156,6 +158,8 @@ class Resource
 
     //     return $builder->getItems();
     // }
+    
+    public function table(TableBuilder $table_builder): void {}
     
     // public function repeaters(RepeaterBuilder $repeater_builder): void {}
     

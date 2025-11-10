@@ -1,0 +1,15 @@
+<?php
+
+return [
+	//'guard' => 'web',
+
+	//'prefix' => 'backline',
+
+	//'logo' => 'images/logo.png',
+
+	'middlewares' => [
+		//
+	],
+
+	'can_disable_users' => false
+];

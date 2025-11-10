@@ -31,6 +31,10 @@ class BacklineServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../assets/dist' => public_path('vendor/backline'),
             ], 'backline-assets');
+
+            $this->publishes([
+                __DIR__.'/../stubs/config.stub' => config_path('backline.php'),
+            ], 'backline-config');
         }
     }
 }

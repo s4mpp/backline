@@ -9,6 +9,6 @@ final class RestrictedArea extends Authenticate
 {
     protected function redirectTo(Request $request): ?string
     {
-        return $request->expectsJson() ? null : route('admin.login');
+        return $request->expectsJson() ? null : route('backline.login');
     }
 }

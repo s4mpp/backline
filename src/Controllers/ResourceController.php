@@ -4,6 +4,7 @@ namespace S4mpp\Backline\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Workbench\App\Models\User;
 use S4mpp\AdminPanel\AdminPanel;
 use S4mpp\AdminPanel\Labels\Text;
 use S4mpp\AdminPanel\Utils\Query;
@@ -18,8 +19,9 @@ use S4mpp\Backline\Concerns\Resource;
 use S4mpp\AdminPanel\Enums\ExportType;
 use S4mpp\AdminPanel\Models\Automation;
 use S4mpp\AdminPanel\Utils\AccessHistory;
+use S4mpp\Backline\Builders\TableBuilder;
+use S4mpp\Backline\Services\DataProvider;
 use S4mpp\AdminPanel\Builders\PageBuilder;
-use S4mpp\AdminPanel\Builders\TableBuilder;
 use S4mpp\AdminPanel\Builders\FilterBuilder;
 use S4mpp\AdminPanel\Builders\ReportBuilder;
 use S4mpp\AdminPanel\Exports\Csv\CsvExporter;
@@ -33,7 +35,19 @@ final class ResourceController extends Controller
 {
     public function index(Request $request, Resource $resource)
     {
-        return view('backline::resources.index', compact('resource'));
+        $breadcrumbs = [$resource->getSectionLabel()];
+
+        $table_builder = new TableBuilder();
+
+        $resource->table($table_builder);
+
+        $columns = $table_builder->getColumns();
+
+        $model = $resource->getModel();
+
+        $registers = (new DataProvider($table_builder, $model))->getData();
+
+        return view('backline::resources.list', compact('resource', 'columns', 'breadcrumbs', 'registers'));
     }
 
     // public function index(Request $request, Resource $resource, TableBuilder $table_builder, FilterBuilder $filter_builder, ReportBuilder $report_builder, PageBuilder $page_builder)
