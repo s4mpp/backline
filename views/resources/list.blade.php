@@ -15,10 +15,22 @@
 					<tr class="odd:bg-gray-100/30 even:bg-gray-200/50">
 						@foreach($columns as $column)
 							@php
-								$column->setContentFromRegister($register);
+                                $column->setRegister($register);
+
+								$column->setContentFromRegister();
+
+                                $column->runCallbacks();
 							@endphp
-							
-							<td class="px-4 py-2 text-sm text-gray-700 whitespace-nowrap">{{ $column->getOriginalContent() }}</td>
+
+							<td class="px-4 py-2 text-sm text-gray-700 whitespace-nowrap">
+                                <span>
+                                    {{ $column->getContentFormatted() }}
+                                </span>
+
+                                @if($details = $column->getDetails())
+                                    <p class="text-base-500 text-xs">{{ $details }}</p>
+                                @endif
+                            </td>
 						@endforeach
 					</tr>
 				@endforeach

@@ -7,10 +7,10 @@ use Illuminate\Support\Str;
 use S4mpp\AdminPanel\Elements\Group;
 use S4mpp\Backline\Traits\Titleable;
 use Illuminate\Database\Eloquent\Model;
+use S4mpp\AdminPanel\Traits\CanBeHidden;
 use S4mpp\AdminPanel\Traits\HasCallbacks;
 use S4mpp\AdminPanel\Traits\HasComponent;
-use S4mpp\AdminPanel\Traits\CanBeHidden;    
-use S4mpp\AdminPanel\Traits\HasDefaultValue;
+use S4mpp\Backline\Traits\HasDefaultValue;
 use S4mpp\AdminPanel\Utils\Label as LabelUtils;
 
 // TODO implement method hideIf
@@ -18,17 +18,22 @@ use S4mpp\AdminPanel\Utils\Label as LabelUtils;
 abstract class Label
 {
     // use CanBeHidden, HasCallbacks, HasComponent, HasDefaultText, Titleable;
-    // use HasCallbacks, HasDefaultValue, 
-    use Titleable;
+    // use HasCallbacks, HasDefaultValue,
+    use Titleable, HasDefaultValue;
 
-    // private string $alignment = 'left';
+    /**
+     * @var array<Closure>
+     */
+    private array $callbacks = [];
+
+    private string $alignment = 'left';
 
     // private ?int $size_on_pdf = null;
 
-    // /**
-    //  * @var Model|array<string,mixed>
-    //  */
-    // private Model|array $register;
+    /**
+     * @var Model|array<string,mixed>
+     */
+    private Model|array $register;
 
     // protected mixed $value;
 
@@ -36,19 +41,23 @@ abstract class Label
 
     private array $path = [];
 
-    // private ?Closure $link = null;
+    private ?Closure $link = null;
 
-    // private bool $link_is_in_new_tab = false;
+    private bool $link_is_in_new_tab = false;
 
-    // private bool $is_sortable = false;
+    private bool $is_sortable = false;
 
-    // private ?Closure $callback_details = null;
+    private ?Closure $callback_details = null;
 
     // private bool $copiable = false;
 
     // // private bool $with_callback = false;
 
     // // private ?Closure $from = null;
+
+    private mixed $original_content;
+
+    private mixed $content_after_callbacks;
 
     public function __construct(string $title, private ?string $field = null)
     {
@@ -58,10 +67,17 @@ abstract class Label
             $this->is_relationship = ! (mb_strpos($field, '.') === false);
 
             $this->path = explode('.', $field);
-
-            array_shift($this->path);
         }
     }
+
+    final public function callback(Closure $callback): self
+    {
+        $this->callbacks[] = $callback;
+
+        return $this;
+    }
+
+
 
     // public function copiable(): self
     // {
@@ -74,7 +90,7 @@ abstract class Label
     // {
     //     return $this->copiable;
     // }
-    
+
 
     // // public function from(Closure $from): self
     // // {
@@ -83,17 +99,17 @@ abstract class Label
     // //     return $this;
     // // }
 
-    // public function sortable(): self
-    // {
-    //     $this->is_sortable = true;
+    final public function sortable(): self
+    {
+        $this->is_sortable = true;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // public function isSortable(): bool
-    // {
-    //     return $this->is_sortable;
-    // }
+    final public function isSortable(): bool
+    {
+        return $this->is_sortable;
+    }
 
     // public function getCurrentSort(array $sort_config)
     // {
@@ -108,35 +124,35 @@ abstract class Label
     //     return null;
     // }
 
-    
-    // public function details(Closure $callback_details): self
-    // {
-    //     $this->callback_details = $callback_details;
 
-    //     return $this;
-    // }
+    final public function details(Closure $callback_details): self
+    {
+        $this->callback_details = $callback_details;
 
-    // public function getDetails(mixed $content = null, Model|array|null $register = null): mixed
-    // {
-    //     $callback = $this->callback_details;
-        
-    //     if(!$callback)
-    //     {
-    //         return null;
-    //     }
+        return $this;
+    }
 
-    //     return call_user_func($callback, $content, $register);
-    // }
+    final public function getDetails(): mixed
+    {
+        $callback = $this->callback_details;
 
-    // //TODO callback_link null, colocar value do campo
-    // public function link(Closure $callback_link, bool $link_is_in_new_tab = false): self
-    // {
-    //     $this->link = $callback_link;
+        if(!$callback)
+        {
+            return null;
+        }
 
-    //     $this->link_is_in_new_tab = $link_is_in_new_tab;
+        return call_user_func($callback, $this->original_content, $this->register);
+    }
 
-    //     return $this;
-    // }
+    //TODO callback_link null, colocar value do campo
+    final public function link(Closure $callback_link, bool $link_is_in_new_tab = false): self
+    {
+        $this->link = $callback_link;
+
+        $this->link_is_in_new_tab = $link_is_in_new_tab;
+
+        return $this;
+    }
 
     // public function hasLink(): bool
     // {
@@ -178,22 +194,22 @@ abstract class Label
     //     return $this;
     // }
 
-    public function getField(): ?string
+    final public function getField(): ?string
     {
         return $this->field;
     }
 
-    // public function align(string $alignment): self
-    // {
-    //     $this->alignment = in_array($alignment, ['left', 'center', 'right']) ? $alignment : null;
+    public function align(string $alignment): self
+    {
+        $this->alignment = in_array($alignment, ['left', 'center', 'right']) ? $alignment : null;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // public function getAlignment(): ?string
-    // {
-    //     return $this->alignment;
-    // }
+    public function getAlignment(): ?string
+    {
+        return $this->alignment;
+    }
 
     // // /**
     // //  * @deprecated
@@ -214,12 +230,9 @@ abstract class Label
     // //     return $this;
     // // }
 
-    public function getOriginalContent(): mixed
-    {
-        return $this->value;
-    }
 
-    // public function getValue(): mixed
+
+    // public function getFormattedContent(): mixed
     // {
     //     return $this->runCallbacks($this->value, $this->register);
     // }
@@ -246,12 +259,12 @@ abstract class Label
     // //     return $this;
     // // }
 
-    // public function setRegister($register): self
-    // {
-    //     $this->register = $register;
+    final public function setRegister($register): self
+    {
+        $this->register = $register;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     // // public function setValueFromRegister(): self
     // // {
@@ -278,21 +291,36 @@ abstract class Label
     // //     return $this->setValue($this->register[$field] ?? null);
     // // }
 
-    public function setContentFromRegister($register): self
+    final public function setContentFromRegister(): void
     {
-        if ($this->is_relationship) {            
-            $value = $register[$this->path[0]] ?? null;
+        if (!$this->is_relationship) {
+            $this->original_content = $this->register[$this->field] ?? null;
 
-            foreach ($this->path as $node) {
-                $value = $value[$node] ?? null;
-            }
-        } else {
-            $value = $register[$this->field] ?? null;
+            return;
         }
 
-        $this->value = $value;
+        $path = $this->path;
 
-        return $this;
+        $value = $this->register[$path[0]] ?? null;
+
+        array_shift($path);
+
+        foreach ($path as $node) {
+            $value = $value[$node] ?? null;
+        }
+
+        $this->original_content = $value;
+    }
+
+    final public function runCallbacks()
+    {
+        $content = $this->getOriginalContent();
+
+        foreach ($this->callbacks as $callback) {
+            $content = $callback($content, $this->register);
+        }
+
+        $this->content_after_callbacks = $content;
     }
 
     // public function setValueFromRegister(): self
@@ -342,4 +370,30 @@ abstract class Label
 
     // //     return $text_labels_from_attribute ?? [];
     // // }
+
+    // private function runCallbacks(mixed $content = null, Model|array|null $register = null): mixed
+    // {
+    //     foreach ($this->callbacks as $callback) {
+    //         $content = $callback($content, $register);
+    //     }
+
+    //     return $content;
+    // }
+
+
+
+    final public function getContentAfterCallbacks(): mixed
+    {
+        return $this->content_after_callbacks;
+    }
+
+    public function getOriginalContent(): mixed
+    {
+        return $this->original_content;
+    }
+
+    public function getContentFormatted(): mixed
+    {
+        return $this->getContentAfterCallbacks();
+    }
 }

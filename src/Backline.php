@@ -41,7 +41,7 @@ abstract class Backline
 
     public static function getResource(string $name)
     {
-        $namespace = Config::get('backline.app_namespace', 'App\\');
+        $namespace = Config::get('backline.app_namespace', 'App');
 
         return $namespace.'\\Backline\\Resources\\'.$name.'Resource';
     }
