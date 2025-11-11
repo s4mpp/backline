@@ -3,9 +3,9 @@
 namespace S4mpp\Backline\Builders;
 
 use Closure;
-use S4mpp\AdminPanel\Resource;
 use S4mpp\Backline\Labels\Label;
 use S4mpp\AdminPanel\Concerns\Panel;
+use S4mpp\Backline\Concerns\Resource;
 use Illuminate\Database\Eloquent\Model;
 use S4mpp\AdminPanel\Concerns\Repeater;
 use S4mpp\AdminPanel\Support\ContextConfig;
@@ -13,8 +13,6 @@ use S4mpp\AdminPanel\Contracts\CollectionBuilder;
 
 class ReadBuilder
 {
-    public function __construct(private Model $register) {}
-
     private array $panels = [];
 
     private array $groups = [];
@@ -22,6 +20,17 @@ class ReadBuilder
     private array $repeaters = [];
 
     private ?string $current_group = null;
+    
+    public function collect(Resource $resource)
+    {
+        if(method_exists($resource, 'read')) {
+        
+            $resource->read($this);
+        }
+        
+        return $this;
+    }
+
 
     //TODO duplicado ReadBuilder/TableBuilder
     private ?Closure $query_builder_appends = null;

@@ -1,11 +1,11 @@
 <?php
 
-namespace S4mpp\Backline\Services;
+namespace S4mpp\Backline\DataTransfer;
 
 use Illuminate\Database\Eloquent\Model;
 use S4mpp\Backline\Builders\TableBuilder;
 
-final class DataProvider
+final class DataList
 {
 	public function __construct(private TableBuilder $builder, private Model $model)
 	{

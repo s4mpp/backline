@@ -7,6 +7,8 @@ use S4mpp\Backline\Enums\Action;
 use S4mpp\AdminPanel\Support\Filter;
 use S4mpp\AdminPanel\Traits\Titleable;
 use Illuminate\Database\Eloquent\Model;
+use S4mpp\Backline\Builders\FormBuilder;
+use S4mpp\Backline\Builders\ReadBuilder;
 use S4mpp\Backline\Builders\TableBuilder;
 use S4mpp\AdminPanel\Builders\PageBuilder;
 use S4mpp\AdminPanel\Support\CustomAction;
@@ -159,7 +161,13 @@ class Resource
     //     return $builder->getItems();
     // }
     
-    public function table(TableBuilder $table_builder): void {}
+    // public function table(TableBuilder $table_builder): void {}
+
+    // public function read(ReadBuilder $read_builder): void {}
+    
+    // public function form(FormBuilder $form_builder): void {}
+
+
     
     // public function repeaters(RepeaterBuilder $repeater_builder): void {}
     

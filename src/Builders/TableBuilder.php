@@ -3,8 +3,8 @@
 namespace S4mpp\Backline\Builders;
 
 use Closure;
-use S4mpp\AdminPanel\Resource;
 use S4mpp\Backline\Labels\Label;
+use S4mpp\Backline\Concerns\Resource;
 use S4mpp\Backline\Support\Ordenation;
 use S4mpp\Backline\Support\TextSearcher;
 
@@ -18,6 +18,16 @@ class TableBuilder
 
     //TODO duplicado ReadBuilder/TableBuilder
     private ?Closure $query_builder_appends = null;
+
+    public function collect(Resource $resource)
+    {
+        if(method_exists($resource, 'table')) {
+        
+            $resource->table($this);
+        }
+        
+        return $this;
+    }
 
     public function searchBy(string $title, string $field): TextSearcher
     {

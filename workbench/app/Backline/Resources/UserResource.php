@@ -2,13 +2,13 @@
 
 namespace Workbench\App\Backline\Resources;
 
+use S4mpp\Backline\Form\Input;
 use S4mpp\Backline\Labels\Text;
-use S4mpp\AdminPanel\Form\Input;
 use S4mpp\Backline\Enums\Action;
 use S4mpp\Backline\Concerns\Resource;
-use S4mpp\Backline\Builders\TableBuilder;
 use S4mpp\Backline\Builders\FormBuilder;
 use S4mpp\Backline\Builders\ReadBuilder;
+use S4mpp\Backline\Builders\TableBuilder;
 
 final class UserResource extends Resource
 {
@@ -37,11 +37,11 @@ final class UserResource extends Resource
         );
     }
 
-    // public function form(FormBuilder $form): void
-    // {
-    //     $form->fields(
-    //         new Input('Nome', 'name'),
-    //         new Input('E-mail', 'email'),
-    //     );
-    // }
+    public function form(FormBuilder $form): void
+    {
+        $form->fields(
+            new Input('Nome', 'name'),
+            new Input('E-mail', 'email'),
+        );
+    }
 }

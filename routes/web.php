@@ -22,11 +22,11 @@ use S4mpp\AdminPanel\Controllers\LogController;
 use S4mpp\AdminPanel\Controllers\PageController;
 use S4mpp\AdminPanel\Controllers\UserController;
 use S4mpp\AdminPanel\Middleware\ContextSelected;
+use S4mpp\Backline\Controllers\CreateController;
+use S4mpp\Backline\Controllers\UpdateController;
 use S4mpp\AdminPanel\Controllers\AdminController;
-use S4mpp\AdminPanel\Controllers\CreateController;
 use S4mpp\AdminPanel\Controllers\DeleteController;
 use S4mpp\AdminPanel\Controllers\ReportController;
-use S4mpp\AdminPanel\Controllers\UpdateController;
 use S4mpp\Backline\Controllers\ResourceController;
 use S4mpp\AdminPanel\Controllers\ContextController;
 use S4mpp\AdminPanel\Controllers\DashboardController;
@@ -125,18 +125,18 @@ $route->group(function (): void {
         //                     }
 
 
-        //                     if ($resource::hasAction(Action::Create)) {
-        //                         Route::prefix('/cadastrar')->controller(CreateController::class)->middleware('can:'.$resource::getPermissionName('action', 'create'))->group(function () use ($resource): void {
-        //                             Route::get('/', 'index')->name($resource::getRouteName('action', 'create'));
-        //                             Route::post('/', 'save')->name($resource::getRouteName('action', 'create', 'save'));
-        //                         });
-        //                     }
+                            if ($resource::hasAction(Action::Create)) {
+                                Route::prefix('/cadastrar')->controller(CreateController::class)->group(function () use ($resource): void {
+                                    Route::get('/', 'index')->name($resource::getRouteName('action', 'create'));
+                                    Route::post('/', 'save')->name($resource::getRouteName('action', 'create', 'save'));
+                                });
+                            }
 
-        //                     if ($resource::hasAction(Action::Update)) {
-        //                         Route::prefix('/editar/{id}')->controller(UpdateController::class)->middleware('can:'.$resource::getPermissionName('action', 'update'))->group(function () use ($resource): void {
-        //                             Route::get('/', 'index')->name($resource::getRouteName('update'));
-        //                             Route::put('/', 'save')->name($resource::getRouteName('update.save'));
-        //                         });
+                            if ($resource::hasAction(Action::Update)) {
+                                Route::prefix('/editar/{id}')->controller(UpdateController::class)->group(function () use ($resource): void {
+                                    Route::get('/', 'index')->name($resource::getRouteName('action', 'update'));
+                                    Route::put('/', 'save')->name($resource::getRouteName('action', 'update', 'save'));
+                                });
                                 
         //                         //TODO habilitar automacao no config
         //                         Route::prefix('/automacoes')->controller(AutomationController::class)->middleware('can:'.$resource::getPermissionName('action', 'update'))->group(function () use ($resource): void {
@@ -146,11 +146,11 @@ $route->group(function (): void {
         //                             Route::delete('/{id}/excluir', 'delete')->name($resource::getRouteName('automations.delete'));
         //                             Route::post('/criar-em-massa', 'createInBulk')->name($resource::getRouteName('automations.create-in-bulk'));
         //                         });
-        //                     }
+                            }
 
 
                             if ($resource::hasAction(Action::Read)) {
-                                Route::get('/visualizar/{id}', [ReadController::class, 'index'])->name($resource::getRouteName('read'));
+                                Route::get('/visualizar/{id}', [ReadController::class, 'index'])->name($resource::getRouteName('action', 'read'));
                             }
 
         //                     if ($resource::hasAction(Action::Duplicate)) {
