@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Workbench\App\Models\User;
 use S4mpp\AdminPanel\AdminPanel;
+use S4mpp\Backline\Enums\Action;
 use S4mpp\AdminPanel\Labels\Text;
 use S4mpp\AdminPanel\Utils\Query;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use S4mpp\AdminPanel\Enums\Action;
 use S4mpp\AdminPanel\Utils\Alpine;
 use Workbench\App\Models\BasicItem;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +47,11 @@ final class ResourceController extends Controller
 
         $registers = (new DataProvider($table_builder, $model))->getData();
 
-        return view('backline::resources.list', compact('resource', 'columns', 'breadcrumbs', 'registers'));
+        $actions = [
+            'read' => $resource::hasAction(Action::Read),
+        ];
+
+        return view('backline::resources.list', compact('resource', 'columns', 'breadcrumbs', 'registers', 'actions'));
     }
 
     // public function index(Request $request, Resource $resource, TableBuilder $table_builder, FilterBuilder $filter_builder, ReportBuilder $report_builder, PageBuilder $page_builder)

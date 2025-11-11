@@ -3,7 +3,7 @@
 namespace S4mpp\Backline\Concerns;
 
 use Illuminate\Support\Str;
-use S4mpp\AdminPanel\Enums\Action;
+use S4mpp\Backline\Enums\Action;
 use S4mpp\AdminPanel\Support\Filter;
 use S4mpp\AdminPanel\Traits\Titleable;
 use Illuminate\Database\Eloquent\Model;
@@ -115,10 +115,10 @@ class Resource
     //     return static::$actions;
     // }
 
-    // final public static function hasAction(Action $action): bool
-    // {
-    //     return in_array($action, static::$actions);
-    // }
+    final public static function hasAction(Action $action): bool
+    {
+        return in_array($action, static::$actions);
+    }
 
     
 

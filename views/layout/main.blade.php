@@ -1,7 +1,7 @@
 @extends('backline::layout.restricted-area')
 
 @section('content')
-	<div class="flex justify-start min-h-full max-w-screen w-screen"  x-data="{mobileMenuOpen: false}">
+	<div class="flex justify-start min-h-full bg-gray-50 max-w-screen w-screen"  x-data="{mobileMenuOpen: false}">
  		<div
 		x-bind:class="mobileMenuOpen ? 'ml-0' : '-ml-[220px]'"
 		class="-ml-[220px]  lg:ml-0 transition-all lg:transition-none w-[220px] border-r border-gray-200  bg-white">

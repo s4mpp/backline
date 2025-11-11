@@ -3,7 +3,7 @@
 use Illuminate\Support\Str;
 use S4mpp\Backline\Backline;
 use S4mpp\AdminPanel\AdminPanel;
-use S4mpp\AdminPanel\Enums\Action;
+use S4mpp\Backline\Enums\Action;
 use Illuminate\Support\Facades\Route;
 use S4mpp\AdminPanel\Middleware\Page;
 use Illuminate\Support\Facades\Config;
@@ -17,9 +17,9 @@ use S4mpp\AdminPanel\Middleware\CustomAction;
 use S4mpp\Backline\Middleware\RestrictedArea;
 use S4mpp\Backline\Controllers\AuthController;
 use S4mpp\Backline\Controllers\HomeController;
+use S4mpp\Backline\Controllers\ReadController;
 use S4mpp\AdminPanel\Controllers\LogController;
 use S4mpp\AdminPanel\Controllers\PageController;
-use S4mpp\AdminPanel\Controllers\ReadController;
 use S4mpp\AdminPanel\Controllers\UserController;
 use S4mpp\AdminPanel\Middleware\ContextSelected;
 use S4mpp\AdminPanel\Controllers\AdminController;
@@ -149,9 +149,9 @@ $route->group(function (): void {
         //                     }
 
 
-        //                     if ($resource::hasAction(Action::Read)) {
-        //                         Route::get('/visualizar/{id}', [ReadController::class, 'index'])->middleware('can:'.$resource::getPermissionName('action', 'read'))->name($resource::getRouteName('read'));
-        //                     }
+                            if ($resource::hasAction(Action::Read)) {
+                                Route::get('/visualizar/{id}', [ReadController::class, 'index'])->name($resource::getRouteName('read'));
+                            }
 
         //                     if ($resource::hasAction(Action::Duplicate)) {
         //                         Route::post('/duplicar/{id}', [DuplicateController::class, 'save'])->middleware('can:'.$resource::getPermissionName('action', 'create'))->name($resource::getRouteName('duplicate'));

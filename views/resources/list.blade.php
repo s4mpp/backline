@@ -8,6 +8,7 @@
 					@foreach($columns as $column)
 						<th class="px-4 py-2 text-sm font-semibold text-gray-700 whitespace-nowrap">{{ $column->getTitle() }}</th>
 					@endforeach
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,6 +33,13 @@
                                 @endif
                             </td>
 						@endforeach
+						<td>
+							@isset($actions['read'])
+								<a title="Visualizar" href="{{ route($resource->getRouteName('read'), ['id' => $register->id]) }}" class="text-sm text-gray-500 hover:text-gray-600">
+									<i class="fa fa-eye"></i>
+								</a>
+							@endisset
+						</td>
 					</tr>
 				@endforeach
 			</tbody>

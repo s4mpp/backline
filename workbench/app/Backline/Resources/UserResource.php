@@ -4,11 +4,11 @@ namespace Workbench\App\Backline\Resources;
 
 use S4mpp\Backline\Labels\Text;
 use S4mpp\AdminPanel\Form\Input;
-use S4mpp\AdminPanel\Enums\Action;
+use S4mpp\Backline\Enums\Action;
 use S4mpp\Backline\Concerns\Resource;
 use S4mpp\Backline\Builders\TableBuilder;
-use S4mpp\AdminPanel\Builders\FormBuilder;
-use S4mpp\AdminPanel\Builders\ReadBuilder;
+use S4mpp\Backline\Builders\FormBuilder;
+use S4mpp\Backline\Builders\ReadBuilder;
 
 final class UserResource extends Resource
 {
@@ -16,7 +16,7 @@ final class UserResource extends Resource
 
     protected static string $label = 'title';
 
-    // protected static array $actions = [Action::Create, Action::Read, Action::Update, Action::Delete, Action::Duplicate];
+    protected static array $actions = [Action::Create, Action::Read, Action::Update, Action::Delete, Action::Duplicate];
 
     public function table(TableBuilder $table): void
     {
@@ -29,13 +29,13 @@ final class UserResource extends Resource
         );
     }
 
-    // public function read(ReadBuilder $read): void
-    // {
-    //     $read->labels(
-    //         new Text('Nome', 'name'),
-    //         new Text('E-mail', 'email'),
-    //     );
-    // }
+    public function read(ReadBuilder $read): void
+    {
+        $read->labels(
+            new Text('Nome', 'name'),
+            new Text('E-mail', 'email'),
+        );
+    }
 
     // public function form(FormBuilder $form): void
     // {
