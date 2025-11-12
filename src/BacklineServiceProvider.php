@@ -20,7 +20,7 @@ class BacklineServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         View::composer([
-            'backline::layout.main'
+            'backline::layout.body'
         ], MenuComposer::class);
 
         if ($this->app->runningInConsole()) {

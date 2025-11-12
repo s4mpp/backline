@@ -46,11 +46,11 @@ final class ResourceController extends Controller
 
         $registers = (new DataList($table_builder, $model))->getData();
 
-        $actions = [
+        $actions = array_filter([
             'read' => $resource::hasAction(Action::Read),
             'update' => $resource::hasAction(Action::Update),
             'delete' => $resource::hasAction(Action::Delete),
-        ];
+        ]);
 
         return view('backline::resources.list', compact('resource', 'columns', 'breadcrumbs', 'registers', 'actions'));
     }

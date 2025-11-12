@@ -27,12 +27,12 @@ class Resource
     // protected static ?string $default_field = null;
 
     protected static string $section = 'main';
-    
+
     protected static string $icon = 'chevron-right';
-    
+
     // protected static string $delete_message = 'Tem certeza que deseja excluir este registro?';
 
-    // protected static array $actions = [];
+    protected static array $actions = [];
 
     protected static int $menu_order = 0;
 
@@ -122,7 +122,7 @@ class Resource
         return in_array($action, static::$actions);
     }
 
-    
+
 
 
     // // // final public function getDefaultRoute(): ?string
@@ -149,7 +149,7 @@ class Resource
 
         /** @var Model */
         return app($model);
-    }    
+    }
 
     // /**
     //  * @deprecated use Builder::collect($resource)
@@ -160,22 +160,22 @@ class Resource
 
     //     return $builder->getItems();
     // }
-    
+
     // public function table(TableBuilder $table_builder): void {}
 
     // public function read(ReadBuilder $read_builder): void {}
-    
+
     // public function form(FormBuilder $form_builder): void {}
 
 
-    
+
     // public function repeaters(RepeaterBuilder $repeater_builder): void {}
-    
+
     // public function customActions(CustomActionBuilder $custom_action_builder): void {}
 
     // public function reports(ReportBuilder $report_builder): void {}
 
     // public function pages(PageBuilder $page_builder): void {}
 
-    // public function widgets(WidgetBuilder $widget_builder): void {}    
+    // public function widgets(WidgetBuilder $widget_builder): void {}
 }

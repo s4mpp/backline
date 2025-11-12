@@ -23,9 +23,9 @@ use S4mpp\AdminPanel\Controllers\PageController;
 use S4mpp\AdminPanel\Controllers\UserController;
 use S4mpp\AdminPanel\Middleware\ContextSelected;
 use S4mpp\Backline\Controllers\CreateController;
+use S4mpp\Backline\Controllers\DeleteController;
 use S4mpp\Backline\Controllers\UpdateController;
 use S4mpp\AdminPanel\Controllers\AdminController;
-use S4mpp\AdminPanel\Controllers\DeleteController;
 use S4mpp\AdminPanel\Controllers\ReportController;
 use S4mpp\Backline\Controllers\ResourceController;
 use S4mpp\AdminPanel\Controllers\ContextController;
@@ -157,10 +157,10 @@ $route->group(function (): void {
         //                         Route::post('/duplicar/{id}', [DuplicateController::class, 'save'])->middleware('can:'.$resource::getPermissionName('action', 'create'))->name($resource::getRouteName('duplicate'));
         //                     }
 
-        //                     if ($resource::hasAction(Action::Delete)) {
-        //                         Route::delete('/excluir/{id}', [DeleteController::class, 'index'])->middleware('can:'.$resource::getPermissionName('action', 'delete'))->name($resource::getRouteName('delete'));
-        //                         Route::delete('/excluir-varios', [DeleteController::class, 'bulkDelete'])->middleware('can:'.$resource::getPermissionName('action', 'delete'))->name($resource::getRouteName('delete.bulk'));
-        //                     }
+                            if ($resource::hasAction(Action::Delete)) {
+                                Route::delete('/excluir/{id}', [DeleteController::class, 'index'])->name($resource::getRouteName('action', 'delete'));
+                                // Route::delete('/excluir-varios', [DeleteController::class, 'bulkDelete'])->middleware('can:'.$resource::getPermissionName('action', 'delete'))->name($resource::getRouteName('delete.bulk'));
+                            }
 
         //                     // Route::prefix('/relatorio')->controller(ReportController::class)->middleware(Report::class)->group(function () use ($resource): void {
         //                     //     Route::get('/{slug}', 'index')->name($resource::getRouteName('report'));

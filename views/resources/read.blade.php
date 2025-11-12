@@ -90,7 +90,7 @@
 	@endif --}}
 @endsection
 
-@section('main')
+@section('content')
 
 	{{-- <x-element::message.flash type="success" />
 	<x-element::message.error /> --}}
@@ -111,11 +111,11 @@
 		@foreach($groups as $title => $group)
 			
 			<x-backline::card title="{{ $title == 'main' ? null : $title }}">
-				<div class="divide-y divide-gray-200 ">
+				{{-- <div class="divide-y divide-gray-200 "> --}}
 					@foreach($group as $field)
-						<div class="p-4 xl:grid xl:grid-cols-12">
-							<div class="text-sm font-medium text-gray-900 xl:col-span-2">{{ $field->getTitle() }}:</div>
-							<div class="text-sm font-normal text-gray-700 xl:col-span-10">
+						<div class="flex flex-col p-4">
+							<div class="text-sm font-medium text-gray-900">{{ $field->getTitle() }}:</div>
+							<div class="text-sm font-normal text-gray-700">
 								@php
 									$field->setRegister($register);
 
@@ -134,7 +134,7 @@
 							</div>
 						</div>
 					@endforeach
-				</div>
+				{{-- </div> --}}
 			</x-backline::card>
 		@endforeach
 	</div>

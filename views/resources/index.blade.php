@@ -6,13 +6,12 @@
 
 @endsection
 
-@section('main')
+@section('content')
+	<div class="space-y-4">
+		@if(session()->has('message'))
+			<x-blix::ui.alert type="success">{{ session('message') }}</x-blix::ui.alert>
+		@endif
 
-<div class="space-y-4">
-	@if(session()->has('message'))
-		<x-blix::ui.alert  type="success">{{ session('message') }}</x-blix::ui.alert>
-	@endif
-
-	@yield('index')
-</div>
+		@yield('index')
+	</div>
 @endsection

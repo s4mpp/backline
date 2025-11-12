@@ -47,6 +47,17 @@
 											<i class="fa fa-edit"></i>
 										</a>
 									@endisset
+
+									@isset($actions['delete'])
+										<form class="flex" onsubmit="return window.confirm('Tem certeza que deseja excluir este registro?')" method="POST"  action="{{ route($resource->getRouteName('action', 'delete'), ['id' => $register->id]) }}">
+											@csrf
+											@method('DELETE')
+
+											<button title="Excluir" class="text-sm text-red-500 cursor-pointer hover:text-red-600">
+												<i class="fa fa-trash"></i>
+											</button>
+										</form>
+ 									@endisset
 								</div>
 							</td>
 						</tr>
@@ -54,5 +65,9 @@
 				</tbody>
 			</table>
 		</div>
+
+		@if(!$registers->isEmpty())
+			{{ $registers->appends(request()->query())->links('backline::layout.pagination') }}
+		@endif
 	</x-backline::card>
 @endsection

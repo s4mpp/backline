@@ -8,7 +8,7 @@
 			<h2 class="text-center">@yield('title')</h2>
 		</div>
 
-		<div class="max-w-md w-full border-t border-b lg:border p-6 bg-white border-gray-200 lg:rounded-lg space-y-6">
+		<div class="max-w-md w-full border-t border-b lg:border p-8 bg-white border-gray-200 space-y-6">
 			<div>
 				@foreach($errors->all() as $error)
 					<x-blix::ui.alert type="error" class="rounded-md">{{ $error }}</x-blix::ui.alert>

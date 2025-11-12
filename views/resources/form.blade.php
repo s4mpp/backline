@@ -8,14 +8,14 @@
 	</x-element::link>	 --}}
 @endsection
 
-@section('main')
+@section('content')
 
 	<div class="space-y-4">
 		{{-- <x-element::message.error /> --}}
 
 		{{-- <x-admin::form.resource
 			action="{{ route($resource->getRouteName('action', 'create', 'save')) }}"
-			method="POST" 
+			method="POST"
 			actionLabel="Cadastrar"
 			:resource=$resource
 			:repeaters=$repeaters
@@ -26,27 +26,29 @@
 		<form action="{{ $action }}" method="POST" x-data="{loading: false}" enctype="multipart/form-data" x-on:submit="loading = true">
 			@csrf
 			@method($method)
-	
+
 			<div class="mb-4 space-y-5">
 				@foreach($groups as $title => $group)
-					<x-backline::card class="p-6" title="{{ $title == 'main' ? null : $title }}" >
-	
+					{{-- <x-backline::card class="p-6" title="{{ $title == 'main' ? null : $title }}" > --}}
+
 						<div class="space-y-5">
 							@foreach($group as $input)
-	
+
 							{{-- @continue($input->isHidden()) --}}
-	
+
 								@php
 									$value = old($input->getFieldName()) ?? (isset($register) ? $input->prepareForForm($register->getRawOriginal($input->getFieldName())) : $input->getDefaultValue() );
 								@endphp
 
-								<x-blix::form.input class="border-gray-300  rounded-md"
-									title="{{ $input->getTitle() }}" 
-									name="{{ $input->getFieldName() }}" 
-									value="{{ $value }}" 
+                                <x-dynamic-component title="{{ $input->getTitle() }}" component="{{ $input->getComponentName() }}" :value=$value :input=$input />
+
+								{{-- <x-blix::form.input class="border-gray-300  rounded-md"
+									title="{{ $input->getTitle() }}"
+									name="{{ $input->getFieldName() }}"
+									value="{{ $value }}"
 									type="{{ $input->getType() }}"
-									required="{{ $input->isRequired() }}" />
-						
+									required="{{ $input->isRequired() }}" /> --}}
+
 								{{-- <x-dynamic-component
 									component="{{ $input->getComponentName() }}"
 									:input=$input
@@ -58,23 +60,23 @@
 								</x-dynamic-component> --}}
 							@endforeach
 						</div>
-	
+
 						{{-- @dump($data) --}}
-					</x-backline::card>
+					{{-- </x-backline::card> --}}
 				@endforeach
-	
+
 				{{-- @foreach($repeaters as $repeater)
 					<x-admin::card :padding=false title="{{ $repeater->getTitle() }}">
 						<x-slot:header>
-	
+
 							<x-element::button size="mini" context="info" type="button" x-on:click="resetFormRepeater('{{ $repeater->getRelationship() }}'); modalRepeater{{ $repeater->getRelationship() }} = true">Adicionar</x-element::button>
-	
+
 						</x-slot:header>
-	
+
 						@php
 							$form_fields = $repeater->getFormFields();
 						@endphp
-	
+
 						<x-admin::table>
 							<x-slot:header>
 								@foreach($form_fields as $input)
@@ -90,7 +92,7 @@
 										<input type="hidden"  x-model="value.id" x-bind:name="'repeaters[{{ $repeater->getRelationship() }}]['+index+'][id]'">
 										@foreach($form_fields as $input)
 											<x-element::table.td>
-												<input type="hidden" x-model="value.{{ $input->getFieldName() }}" 
+												<input type="hidden" x-model="value.{{ $input->getFieldName() }}"
 												x-bind:name="'repeaters[{{ $repeater->getRelationship() }}]['+index+'][{{ $input->getFieldName() }}]'">
 												<span x-text="value.{{ $input->getFieldName() }}"></span>
 											</x-element::table.td>
@@ -110,7 +112,7 @@
 					</x-admin::card>
 				@endforeach --}}
 			</div>
-	
+
 			<x-blix::ui.button hasLoading class="bg-gray-300 ring-gray-700  text-gray-800 border-transparent rounded-md" type="submit">Salvar</x-blix::ui.button>
 		</form>
 	</div>
