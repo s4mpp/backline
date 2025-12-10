@@ -113,7 +113,7 @@
 				@endforeach --}}
 			</div>
 
-			<x-blix::ui.button hasLoading class="bg-gray-300 ring-gray-700  text-gray-800 border-transparent rounded-md" type="submit">Salvar</x-blix::ui.button>
+			<x-blix::ui.button hasLoading class="bg-gray-300 ring-gray-700  text-gray-800 border-transparent" type="submit">Salvar</x-blix::ui.button>
 		</form>
 	</div>
 

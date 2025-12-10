@@ -40,9 +40,9 @@
 									   <li>
 										   <a title="{{ $item['title'] }}"
 										   @class([
-											   'group flex justify-between font-medium items-center p-2 text-sm transition-ease-in transition-colors ',
-											   'hover:text-gray-900 text-gray-600' => !$item['active'],
-											   'text-gray-900' => $item['active'],
+											   'group mb-1 flex justify-between font-medium items-center p-2 text-sm   transition-colors ',
+											   'hover:text-gray-900 hover:bg-gray-100 text-gray-600' => !$item['active'],
+											   'text-gray-900 bg-gray-200' => $item['active'],
 										   ])
 										   href="{{ $item['url'] }}">
 											   <div class="flex gap-x-2 items-center justify-start truncate">

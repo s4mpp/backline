@@ -15,7 +15,7 @@
 		<link rel="stylesheet" href="{{ asset('vendor/backline/css/style.css') }}">
 		<link rel="stylesheet" href="{{ asset('vendor/backline/fonts/font-awesome/css/all.min.css') }}">
 	</head>
-	<body class="h-full min-h-full">
+	<body class="h-full min-h-full bg-white">
         @yield('body')
 
         @stack('scripts')

@@ -23,6 +23,10 @@ final class Menu
 			'order' => $order,
 			'items' => []
 		];
+
+		$this->current_section = $slug;
+
+		return $this; 
 	}
 
 	public function section(string $slug)

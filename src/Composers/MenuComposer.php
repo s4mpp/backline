@@ -41,7 +41,13 @@ class MenuComposer
 
     private function createMenu(Menu $menu)
     {
-        $menu->createSection('Main', 'main', -1);
+        $menu->createSection('Main', 'main', -1)->addItem(
+            title: 'Home',
+            icon: 'home',
+            route_name: 'backline.home.index',
+            activation_route_is: 'backline.home.index',
+            order: -1,
+        );
         
         foreach(Backline::getResources() as $resource_class) {
 

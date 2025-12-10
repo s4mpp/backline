@@ -95,8 +95,8 @@ abstract class Backline
     //     return Config::get('admin.logs', false);
     // }
 
-    public static function canDisableUsers(): bool
-    {
-        return Config::get('backline.can_disable_users', false);
-    }
+    // public static function canDisableUsers(): bool
+    // {
+    //     return Config::get('backline.can_disable_users', false);
+    // }
 }

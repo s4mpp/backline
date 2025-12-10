@@ -34,9 +34,9 @@ final class AuthController extends Controller
             throw ValidationException::withMessages(['account_not_found' => 'Conta não encontrada. Verifique.']);
         }
 
-        if(Backline::canDisableUsers() &&  !$user->is_active) {
-            throw ValidationException::withMessages(['account_not_active' => 'Conta não está ativa.']);
-        }
+        // if(Backline::canDisableUsers() &&  !$user->is_active) {
+        //     throw ValidationException::withMessages(['account_not_active' => 'Conta não está ativa.']);
+        // }
 
         $login = new Login($user, $guard_name);
 

@@ -12,7 +12,7 @@
 			@endif
 		</span>
 	</div>
-	<div class="min-w-16 px-6 flex items-center justify-center b">
+	<div class="min-w-16 px-6 flex items-center justify-center">
 		@if($file = $attributes['content'])
 			@php
 				$disk = $input->getDisk();
