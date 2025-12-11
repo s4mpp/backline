@@ -11,7 +11,6 @@ use S4mpp\AdminPanel\Traits\CanBeHidden;
 use S4mpp\AdminPanel\Traits\HasCallbacks;
 use S4mpp\AdminPanel\Traits\HasComponent;
 use S4mpp\Backline\Traits\HasDefaultValue;
-use S4mpp\AdminPanel\Utils\Label as LabelUtils;
 
 // TODO implement method hideIf
 // TODO $register / setRegister pode ser estatico
@@ -19,7 +18,7 @@ abstract class Label
 {
     // use CanBeHidden, HasCallbacks, HasComponent, HasDefaultText, Titleable;
     // use HasCallbacks, HasDefaultValue,
-    use Titleable, HasDefaultValue;
+    use HasDefaultValue, Titleable;
 
     /**
      * @var array<Closure>
@@ -77,8 +76,6 @@ abstract class Label
         return $this;
     }
 
-
-
     // public function copiable(): self
     // {
     //     $this->copiable = true;
@@ -90,7 +87,6 @@ abstract class Label
     // {
     //     return $this->copiable;
     // }
-
 
     // // public function from(Closure $from): self
     // // {
@@ -124,7 +120,6 @@ abstract class Label
     //     return null;
     // }
 
-
     final public function details(Closure $callback_details): self
     {
         $this->callback_details = $callback_details;
@@ -136,15 +131,14 @@ abstract class Label
     {
         $callback = $this->callback_details;
 
-        if(!$callback)
-        {
+        if (! $callback) {
             return null;
         }
 
         return call_user_func($callback, $this->original_content, $this->register);
     }
 
-    //TODO callback_link null, colocar value do campo
+    // TODO callback_link null, colocar value do campo
     final public function link(Closure $callback_link, bool $link_is_in_new_tab = false): self
     {
         $this->link = $callback_link;
@@ -230,8 +224,6 @@ abstract class Label
     // //     return $this;
     // // }
 
-
-
     // public function getFormattedContent(): mixed
     // {
     //     return $this->runCallbacks($this->value, $this->register);
@@ -293,7 +285,7 @@ abstract class Label
 
     final public function setContentFromRegister(): void
     {
-        if (!$this->is_relationship) {
+        if (! $this->is_relationship) {
             $this->original_content = $this->register[$this->field] ?? null;
 
             return;
@@ -312,7 +304,7 @@ abstract class Label
         $this->original_content = $value;
     }
 
-    final public function runCallbacks()
+    final public function runCallbacks(): void
     {
         $content = $this->getOriginalContent();
 
@@ -379,8 +371,6 @@ abstract class Label
 
     //     return $content;
     // }
-
-
 
     final public function getContentAfterCallbacks(): mixed
     {

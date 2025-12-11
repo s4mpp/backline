@@ -2,20 +2,21 @@
 
 namespace S4mpp\Backline\Controllers;
 
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use S4mpp\Backline\Support\Activity;
 use S4mpp\Backline\Concerns\Resource;
 use S4mpp\Backline\Builders\FormBuilder;
 use S4mpp\Backline\Enums\ActivityAction;
-use Dotenv\Exception\ValidationException;
+use Illuminate\Validation\ValidationException;
 
 final class DeleteController extends Controller
 {
     public function index(Request $request, Resource $resource, int $id)
     {
-        $register = $resource->getModel()->findOrFail($id);
+        $model = $resource->getModel();
+        
+        $register = $model::query()->findOrFail($id);
 
         // $hidden_filter = ['filters' => $request->get('filters'), '_f' => $request->get('_f'), 'per_page' => $request->get('per_page')];
 
@@ -30,15 +31,15 @@ final class DeleteController extends Controller
         return redirect()->back()->with('message', 'Registro excluído com sucesso.');
     }
 
-    //TODO transaction DB
+    // TODO transaction DB
     // public function bulkDelete(Request $request, Resource $resource)
     // {
     //     $hidden_filter = ['filters' => $request->get('filters'), '_f' => $request->get('_f'), 'per_page' => $request->get('per_page')];
 
     //     $redirect_back = to_route($resource->getRouteName('index'), $hidden_filter);
-        
+
     //     try {
-            
+
     //         $ids = request()->input('ids');
 
     //         $ids = array_filter(explode(',', $ids));
@@ -52,7 +53,7 @@ final class DeleteController extends Controller
     //         }
 
     //         $total = 0;
-                        
+
     //         $registers = $resource->getModel()->find($ids);
 
     //         foreach($registers as $register)
@@ -63,7 +64,6 @@ final class DeleteController extends Controller
     //             }
     //         }
 
-            
     //         return $redirect_back->with('message', $total.' registro(s) excluído(s) com sucesso.');
     //     } catch (Exception $e) {
     //         return $redirect_back->withErrors($e->getMessage(), 'exception');
@@ -81,7 +81,7 @@ final class DeleteController extends Controller
 
     //         $log->setOriginalData($input->getTitle(), $register->getRawOriginal($name));
     //     }
-            
+
     //     $log->setResource($resource->getName())->save(true);
     // }
 }

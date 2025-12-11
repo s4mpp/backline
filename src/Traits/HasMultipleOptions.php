@@ -3,9 +3,9 @@
 namespace S4mpp\Backline\Traits;
 
 use Closure;
-use Illuminate\Database\Eloquent\Collection as DatabaseCollection;
-use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection as SupportCollection;
+use Illuminate\Database\Eloquent\Collection as DatabaseCollection;
 
 // TODO [MAJOR] add method Model (major) - select only fields are used (key and value)
 // TODO [MAJOR] create methods: key and value (add callback automatically)
@@ -29,12 +29,12 @@ trait HasMultipleOptions
         return $this;
     }
 
-    public function key($callback_key)
+    public function key($callback_key): void
     {
         $this->callback_key = $callback_key;
     }
 
-    public function value($callback_value)
+    public function value($callback_value): void
     {
         $this->callback_value = $callback_value;
     }
@@ -50,20 +50,19 @@ trait HasMultipleOptions
 
         foreach ($source as $key => $value) {
 
-            if($this->callback_key) {
+            if ($this->callback_key) {
                 $new_key = call_user_func($this->callback_key, $value, $key);
 
-                if(!is_null($new_key))
-                {
+                if (! is_null($new_key)) {
                     $key = $new_key;
                 }
             }
 
-            if($this->callback_value) {
+            if ($this->callback_value) {
                 $value = call_user_func($this->callback_value, $value, $key);
             }
 
-            if(is_array($value)) {
+            if (is_array($value)) {
                 $value = json_encode($value);
             }
 
@@ -75,27 +74,27 @@ trait HasMultipleOptions
 
     public function fromModel(string $model_class, ?string $value = null, string $key = 'id')
     {
-        $this->source(fn() => $model_class::get());
+        $this->source(fn () => $model_class::get());
 
-        $this->key(function($item) use ($key) {
+        $this->key(function ($item) use ($key) {
 
-            if(!$item->{$key}) {
+            if (! $item->{$key}) {
                 throw new \Exception('Chave '.$key.' não existe na coleção');
             }
 
             return $item->{$key};
         });
 
-        $this->value(fn($item) => $item[$value] ?? join(' | ', array_filter($item->toArray())));
+        $this->value(fn ($item) => $item[$value] ?? implode(' | ', array_filter($item->toArray())));
 
         return $this;
     }
 
     public function fromEnum(string $enum_class, ?string $value = null, ?string $key = null)
     {
-        $this->source(fn() => $enum_class::cases());
+        $this->source(fn () => $enum_class::cases());
 
-        $this->key(function($item) use ($key) {
+        $this->key(function ($item) use ($key) {
 
             if (is_string($key)) {
                 return $item->$key();
@@ -104,7 +103,7 @@ trait HasMultipleOptions
             return $item->value;
         });
 
-        $this->value(function($item) use ($value) {
+        $this->value(function ($item) use ($value) {
             if (is_string($value)) {
                 return $item->$value();
             }
@@ -137,8 +136,6 @@ trait HasMultipleOptions
 
     //     return $this;
     // }
-
-
 
     // private Closure $callback_key;
 

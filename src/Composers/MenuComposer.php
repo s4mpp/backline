@@ -4,79 +4,78 @@ namespace S4mpp\Backline\Composers;
 
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use S4mpp\AdminPanel\Resource;
-use S4mpp\AdminPanel\AdminPanel;
-use S4mpp\Backline\Navigation\Menu;
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Facades\Auth;
-use S4mpp\AdminPanel\Utils\AccessHistory;
-use S4mpp\AdminPanel\Builders\PageBuilder;
-use S4mpp\AdminPanel\Builders\ReportBuilder;
 use S4mpp\Backline\Backline;
+use S4mpp\Backline\Navigation\Item;
+use S4mpp\Backline\Navigation\Menu;
+use S4mpp\Backline\Navigation\Section;
 
 class MenuComposer
 {
     public function __construct(
-		private readonly Request $request
-	) {
-	}
+        private readonly Request $request
+    ) {}
 
     public function compose(View $view): void
     {
         $segment = 1;
 
-        if(config('admin.prefix')) {
+        if (config('admin.prefix')) {
             $segment++;
         }
 
-
-        $menu = new Menu();
+        $menu = new Menu;
 
         $this->createMenu($menu);
 
-        $items = $menu->activate($this->request)->ordenate()->getItems();
+        $menu->activate(fn ($item) => $this->request->routeIs($item->getActivationRouteIs()))->ordenate();
 
-        $view->with('menu', $items);
+        $menu_sections = $menu->getSections();
+
+        $view->with('menu_sections', $menu_sections);
     }
 
-    private function createMenu(Menu $menu)
+    private function createMenu(Menu $menu): void
     {
-        $menu->createSection('Main', 'main', -1)->addItem(
+        $main_section = new Section('Main', 'main', -1);
+
+        $main_section->addItem(new Item(
             title: 'Home',
             icon: 'home',
             route_name: 'backline.home.index',
             activation_route_is: 'backline.home.index',
             order: -1,
-        );
-        
-        foreach(Backline::getResources() as $resource_class) {
+        ));
 
-            $section = $resource_class::getSection();
+        $menu->addSection($main_section);
 
-            $menu->createSection($section, $section);
+        foreach (Backline::getResources() as $resource_class) {
 
-            $menu->section($section)
-                ->addItem(
-                    title: $resource_class::getTitle(),
-                    icon: $resource_class::getIcon(),
-                    route_name: $resource_class::getRouteName('action', 'index'),
-                    activation_route_is: $resource_class::getRouteName('action', '*'),
-                    order: -1,
-                    badge: $resource_class::badge()
-                );
+            $section = null;
 
-        //     $resource = new $resource_class;
+            $slug_section = $resource_class::getSection();
 
-        //     foreach((new PageBuilder)->collect($resource)->getItems() as $page)
-        //     {
-        //         $menu->section($slug_resource)->addItem(
-        //             title: $page->getTitle(),
-        //             icon: 'chevron-right',
-        //             route_name: $resource->getRouteName('page', $page->getSlug()),
-        //             activation_route_is: $resource->getRouteName('page', $page->getSlug()),
-        //             permission_name: $resource_class::getPermissionName('AdminResource', $resource::getName(), 'page', class_basename($page::class)),
-        //         );
-        //     }
+            if ($slug_section) {
+                if (! $section = $menu->getSection($slug_section)) {
+                    $section = $menu->addSection(new Section($slug_section, $slug_section));
+                }
+            }
+
+            if (! $section) {
+                $section = $main_section;
+            }
+
+            if (! $icon = $resource_class::getIcon()) {
+                $icon = 'chevron-right';
+            }
+
+            $section->addItem(new Item(
+                title: $resource_class::getTitle(),
+                icon: $icon,
+                route_name: $resource_class::getRouteName('action', 'index'),
+                activation_route_is: $resource_class::getRouteName('action', '*'),
+                order: $resource_class::getMenuOrder(),
+                badge: $resource_class::badge()
+            ));
         }
     }
 }

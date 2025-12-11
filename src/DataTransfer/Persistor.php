@@ -11,10 +11,9 @@ final class Persistor
 {
     private ?Model $register = null;
 
-	public function __construct(private FormBuilder $builder, private Model $model, private array $data)
-	{}
+    public function __construct(private FormBuilder $builder, private Model $model, private array $data) {}
 
-    public function setRegister(Model $register)
+    public function setRegister(Model $register): void
     {
         $this->register = $register;
     }
@@ -26,7 +25,8 @@ final class Persistor
         foreach ($this->builder->getItems() as $input) {
             $name = $input->getFieldName();
 
-            $validation_rules[$name] = $input->getRules($this->data, $this->model->getTable(), $this->register?->id);
+
+            $validation_rules[$name] = $input->getRules($this->data, $this->model->getTable(), $this->register?->getAttribute('id'));
 
             $attributes[$name] = $input->getTitle();
 
@@ -39,21 +39,21 @@ final class Persistor
             $data_to_validate[$name] = $input->prepareForSave($value);
 
         }
-        
+
         $validator = Validator::make($data_to_validate, $validation_rules, [], $attributes);
 
-        if($after = $this->builder->getAfterValidation()) {
+        if ($after = $this->builder->getAfterValidation()) {
             $validator->after($after);
         }
-        
+
         $validator->validate();
 
         return $validator->safe();
     }
 
-    public function save(ValidatedInput $data)
+    public function save(ValidatedInput $data): void
     {
-        if (!$register =  $this->register) {
+        if (! $register = $this->register) {
             $register = new $this->model;
         }
 
@@ -64,7 +64,7 @@ final class Persistor
             $input_name = $field_name;
 
             $new_name = $data[$input_name] ?? null;
-            
+
             $register->{$field_name} = $new_name;
         }
 

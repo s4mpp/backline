@@ -4,14 +4,11 @@ namespace S4mpp\Backline\Concerns;
 
 use Illuminate\Support\Str;
 use S4mpp\Backline\Enums\Action;
-use S4mpp\AdminPanel\Support\Filter;
-use S4mpp\AdminPanel\Traits\Titleable;
 use Illuminate\Database\Eloquent\Model;
 use S4mpp\Backline\Builders\FormBuilder;
 use S4mpp\Backline\Builders\ReadBuilder;
 use S4mpp\Backline\Builders\TableBuilder;
 use S4mpp\AdminPanel\Builders\PageBuilder;
-use S4mpp\AdminPanel\Support\CustomAction;
 use S4mpp\AdminPanel\Builders\ReportBuilder;
 use S4mpp\AdminPanel\Builders\WidgetBuilder;
 use S4mpp\AdminPanel\Builders\RepeaterBuilder;
@@ -20,15 +17,15 @@ use S4mpp\AdminPanel\Builders\CustomActionBuilder;
 
 class Resource
 {
-    // protected static string $title;
+    protected static string $title;
 
     // protected static string $label = '';
 
     // protected static ?string $default_field = null;
 
-    protected static string $section = 'main';
+    protected static ?string $section = null;
 
-    protected static string $icon = 'chevron-right';
+    protected static ?string $icon = null;
 
     // protected static string $delete_message = 'Tem certeza que deseja excluir este registro?';
 
@@ -46,7 +43,7 @@ class Resource
         return str_replace('Resource', '', class_basename(static::class));
     }
 
-    final public static function getIcon(): string
+    final public static function getIcon(): ?string
     {
         return static::$icon;
     }
@@ -76,7 +73,7 @@ class Resource
         return Str::slug(self::getTitle());
     }
 
-    final public static function getSection(): string
+    final public static function getSection(): ?string
     {
         return static::$section;
     }
@@ -122,9 +119,6 @@ class Resource
         return in_array($action, static::$actions);
     }
 
-
-
-
     // // // final public function getDefaultRoute(): ?string
     // // // {
     // // // 	if($this->hasAction('read'))
@@ -166,8 +160,6 @@ class Resource
     // public function read(ReadBuilder $read_builder): void {}
 
     // public function form(FormBuilder $form_builder): void {}
-
-
 
     // public function repeaters(RepeaterBuilder $repeater_builder): void {}
 

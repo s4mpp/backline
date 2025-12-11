@@ -6,34 +6,30 @@ use Closure;
 use S4mpp\Backline\Labels\Label;
 use S4mpp\AdminPanel\Concerns\Panel;
 use S4mpp\Backline\Concerns\Resource;
-use Illuminate\Database\Eloquent\Model;
 use S4mpp\AdminPanel\Concerns\Repeater;
-use S4mpp\AdminPanel\Support\ContextConfig;
-use S4mpp\AdminPanel\Contracts\CollectionBuilder;
 
 class ReadBuilder
 {
     private array $panels = [];
 
     private array $groups = [];
-    
+
     private array $repeaters = [];
 
     private ?string $current_group = null;
-    
+
+    // TODO duplicado ReadBuilder/TableBuilder
+    private ?Closure $query_builder_appends = null;
+
     public function collect(Resource $resource)
     {
-        if(method_exists($resource, 'read')) {
-        
+        if (method_exists($resource, 'read')) {
+
             $resource->read($this);
         }
-        
+
         return $this;
     }
-
-
-    //TODO duplicado ReadBuilder/TableBuilder
-    private ?Closure $query_builder_appends = null;
 
     public function group(string $name_group): self
     {
@@ -69,13 +65,13 @@ class ReadBuilder
         return $this->repeaters;
     }
 
-    //TODO duplicado ReadBuilder/TableBuilder
-    public function query(Closure $builder)
+    // TODO duplicado ReadBuilder/TableBuilder
+    public function query(Closure $builder): void
     {
         $this->query_builder_appends = $builder;
     }
 
-    //TODO duplicado ReadBuilder/TableBuilder
+    // TODO duplicado ReadBuilder/TableBuilder
     public function getQueryBuilderAppends(): ?Closure
     {
         return $this->query_builder_appends;

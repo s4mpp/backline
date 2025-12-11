@@ -29,7 +29,7 @@
 
 			<div class="mb-4 space-y-5">
 				@foreach($groups as $title => $group)
-					{{-- <x-backline::card class="p-6" title="{{ $title == 'main' ? null : $title }}" > --}}
+					<x-backline::card class="p-6" title="{{ $title == 'main' ? null : $title }}" >
 
 						<div class="space-y-5">
 							@foreach($group as $input)
@@ -62,7 +62,7 @@
 						</div>
 
 						{{-- @dump($data) --}}
-					{{-- </x-backline::card> --}}
+					</x-backline::card>
 				@endforeach
 
 				{{-- @foreach($repeaters as $repeater)

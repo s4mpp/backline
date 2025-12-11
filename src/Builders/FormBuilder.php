@@ -6,7 +6,6 @@ use Closure;
 use S4mpp\Backline\Enums\Action;
 use S4mpp\Backline\Form\FormInput;
 use S4mpp\Backline\Concerns\Resource;
-use S4mpp\AdminPanel\Contracts\CollectionBuilder;
 
 class FormBuilder
 {
@@ -22,8 +21,8 @@ class FormBuilder
 
     public function collect(Resource $resource)
     {
-        if(method_exists($resource, 'form')) {
-            
+        if (method_exists($resource, 'form')) {
+
             $resource->form($this);
         }
 
@@ -35,7 +34,7 @@ class FormBuilder
         return $this->action;
     }
 
-    public function setId(int $id)
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -73,7 +72,7 @@ class FormBuilder
     {
         return $this->group_fields;
     }
-    
+
     public function getItems(?callable $filter = null): array
     {
         $fields = [];
@@ -89,7 +88,7 @@ class FormBuilder
         return $fields;
     }
 
-    public function afterValidation(Closure $validation)
+    public function afterValidation(Closure $validation): void
     {
         $this->validation = $validation;
     }

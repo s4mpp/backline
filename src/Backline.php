@@ -27,7 +27,7 @@ abstract class Backline
         if (! File::exists($path)) {
             return [];
         }
-        
+
         $resources = [];
 
         foreach (File::allFiles($path) as $file) {
@@ -45,8 +45,6 @@ abstract class Backline
 
         return $namespace.'\\Backline\\Resources\\'.$name.'Resource';
     }
-
-
 
     // public static function createModule(string $title, int $order = 0, ?string $color = null, string $icon = 'squares-2x2'): void
     // {

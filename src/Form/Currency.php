@@ -3,7 +3,6 @@
 namespace S4mpp\Backline\Form;
 
 use Illuminate\Support\Number;
-use S4mpp\Backline\Form\FormInput;
 use S4mpp\AdminPanel\Traits\CanModifyFormInput;
 use S4mpp\AdminPanel\Traits\InputCanBeAutomatable;
 

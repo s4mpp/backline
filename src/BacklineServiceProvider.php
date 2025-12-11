@@ -3,7 +3,6 @@
 namespace S4mpp\Backline;
 
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use S4mpp\Backline\Composers\MenuComposer;
 use Illuminate\Foundation\Console\AboutCommand;
@@ -13,14 +12,14 @@ class BacklineServiceProvider extends ServiceProvider
     /**
      * Bootstrap the application services.
      */
-    public function boot()
+    public function boot(): void
     {
         $this->loadViewsFrom(__DIR__.'/../views', 'backline');
 
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         View::composer([
-            'backline::layout.body'
+            'backline::layout.body',
         ], MenuComposer::class);
 
         if ($this->app->runningInConsole()) {

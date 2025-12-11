@@ -2,7 +2,6 @@
 
 namespace S4mpp\Backline\Controllers;
 
-use Exception;
 use S4mpp\Backline\Backline;
 use S4mpp\LaravelAuthSuite\Login;
 use Illuminate\Routing\Controller;
@@ -26,8 +25,14 @@ final class AuthController extends Controller
     {
         $guard_name = Backline::getGuardName();
 
-        $model = app(Auth::guard($guard_name)->getProvider()->getModel());
+        /** @var \Illuminate\Auth\SessionGuard $guard */
+        $guard = Auth::guard($guard_name);
 
+        /** @var \Illuminate\Auth\EloquentUserProvider $user_provider */
+        $user_provider = $guard->getProvider();
+        
+        $model = app($user_provider->getModel());
+        
         $user = $model->where('email', $request->get('username'))->first();
 
         if (! $user) {

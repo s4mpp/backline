@@ -21,7 +21,7 @@ final class TextSearcher
 
     public function prepareSearchTerm(string $search_term): string
     {
-        if(!$this->prepare) {
+        if (! $this->prepare) {
             return $search_term;
         }
 
@@ -38,7 +38,7 @@ final class TextSearcher
         return $this->field;
     }
 
-    public function exact()
+    public function exact(): void
     {
         $this->is_exact = true;
     }

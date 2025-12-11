@@ -8,12 +8,11 @@ trait CanSum
 
     private ?string $field_sum = null;
 
-    public function sum(string $field = null): self
+    public function sum(?string $field = null): self
     {
         $this->has_sum = true;
 
-        if($field)
-        {
+        if ($field) {
             $this->field_sum = $field;
         }
 

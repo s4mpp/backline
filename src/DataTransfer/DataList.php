@@ -7,13 +7,12 @@ use S4mpp\Backline\Builders\TableBuilder;
 
 final class DataList
 {
-	public function __construct(private TableBuilder $builder, private Model $model)
-	{
-		
-	}
+    public function __construct(private TableBuilder $builder, private Model $model) {}
 
-    public function getData()
+    public function getPaginated()
     {
-        return $this->model::paginate();
+        $order = $this->builder->getOrdenation();
+
+        return $this->model::query()->orderBy($order->getField(), $order->getDirection())->paginate();
     }
 }

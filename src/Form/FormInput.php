@@ -18,7 +18,7 @@ abstract class FormInput
 {
     // use CanBeHidden, HasComponent, HasDefaultText, Titleable;
     // use HasCallbacks, HasComponent, HasDefaultValue, Titleable;
-    use Titleable, HasComponent;
+    use HasComponent, Titleable;
 
     // private ?string $prefix = 'data';
 
@@ -203,13 +203,13 @@ abstract class FormInput
         return $this->is_required;
     }
 
-    public function unique(callable $where = null): self
+    public function unique(?callable $where = null): self
     {
-        $this->addRule(function(array $data, string $table, ?int $id = null) use ($where) {
+        $this->addRule(function (array $data, string $table, ?int $id = null) use ($where) {
 
             $rule = Rule::unique($table, $this->getFieldName())->ignore($id);
 
-            if(is_callable($where)) {
+            if (is_callable($where)) {
                 $rule = $rule->where($where);
             }
 

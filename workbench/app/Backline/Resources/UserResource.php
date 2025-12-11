@@ -26,6 +26,7 @@ final class UserResource extends Resource
         $table->columns(
             new Text('Nome', 'name'),
             new Text('E-mail', 'email'),
+            new Text('Senha', 'password'),
         );
     }
 
@@ -34,6 +35,7 @@ final class UserResource extends Resource
         $read->labels(
             new Text('Nome', 'name'),
             new Text('E-mail', 'email'),
+            new Text('Senha', 'password'),
         );
     }
 
@@ -42,6 +44,7 @@ final class UserResource extends Resource
         $form->fields(
             new Input('Nome', 'name'),
             new Input('E-mail', 'email'),
+            new Input('Senha', 'password'),
         );
     }
 }

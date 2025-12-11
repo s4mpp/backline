@@ -22,7 +22,9 @@
         "s4mpp/blix-ui": "dev-master"
     },
     "require-dev": {
+        "laravel/pint": "^1.26",
         "orchestra/testbench": "^9.0",
+        "phpstan/phpstan": "^1.12",
         "s4mpp/laragenius": "^2.0"
     },
     "repositories": [

@@ -14,25 +14,30 @@ class TableBuilder
 
     private array $columns = [];
 
-    private ?Ordenation $ordenation = null;
+    private Ordenation $ordenation;
 
-    //TODO duplicado ReadBuilder/TableBuilder
+    // TODO duplicado ReadBuilder/TableBuilder
     private ?Closure $query_builder_appends = null;
+
+    public function __construct()
+    {
+        $this->ordenation = new Ordenation('id', 'desc');
+    }
 
     public function collect(Resource $resource)
     {
-        if(method_exists($resource, 'table')) {
-        
+        if (method_exists($resource, 'table')) {
+
             $resource->table($this);
         }
-        
+
         return $this;
     }
 
     public function searchBy(string $title, string $field): TextSearcher
     {
         $text_searcher = new TextSearcher($title, $field);
-        
+
         $this->search_by[] = $text_searcher;
 
         return $text_searcher;
@@ -55,11 +60,7 @@ class TableBuilder
 
     public function getOrdenation()
     {
-        if ($this->ordenation) {
-            return $this->ordenation;
-        }
-
-        return new Ordenation('id', 'desc');
+        return $this->ordenation;
     }
 
     public function columns(Label ...$columns): void
@@ -72,17 +73,15 @@ class TableBuilder
         return $this->columns;
     }
 
-    //TODO duplicado ReadBuilder/TableBuilder
-    public function query(Closure $builder)
+    // TODO duplicado ReadBuilder/TableBuilder
+    public function query(Closure $builder): void
     {
         $this->query_builder_appends = $builder;
     }
 
-    //TODO duplicado ReadBuilder/TableBuilder
+    // TODO duplicado ReadBuilder/TableBuilder
     public function getQueryBuilderAppends(): ?Closure
     {
         return $this->query_builder_appends;
     }
-
-    
 }

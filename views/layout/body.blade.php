@@ -30,38 +30,38 @@
 			<div
 			x-bind:class="mobileMenuOpen ? 'ml-0' : '-ml-[220px]'"
 			class="-ml-[220px]  lg:ml-0 transition-all lg:transition-none w-[220px]">
-			    <nav class="  pt-4 divide-y">
-				   @foreach ($menu as $section)
+			    <nav class="  pt-4">
+				   @foreach ($menu_sections as $section)
 					   <div class="py-3 px-2">
-						   <div class="text-xs mb-1 px-4 font-semibold uppercase text-gray-900">{{ $section['title'] }}</div>
+						   <div class="text-xs mb-1 px-4 font-semibold uppercase text-gray-900">{{ $section->getTitle()}}</div>
 						   <div class="w-full">
-							   @foreach ($section['items'] as $item)
+							   @foreach ($section->getItems() as $item)
 								   <ul class="px-0">
 									   <li>
-										   <a title="{{ $item['title'] }}"
+										   <a title="{{ $item->getTitle()}}"
 										   @class([
-											   'group mb-1 flex justify-between font-medium items-center p-2 text-sm   transition-colors ',
-											   'hover:text-gray-900 hover:bg-gray-100 text-gray-600' => !$item['active'],
-											   'text-gray-900 bg-gray-200' => $item['active'],
+											   'group mb-1 flex justify-between font-medium items-center p-2 text-sm transition-colors ',
+											   'hover:text-gray-900 hover:bg-gray-100 text-gray-600' => !$item->isActive(),
+											   'text-gray-900 bg-gray-200' => $item->isActive(),
 										   ])
-										   href="{{ $item['url'] }}">
+										   href="{{ $item->getUrl()}}">
 											   <div class="flex gap-x-2 items-center justify-start truncate">
    
 												   <div class="w-4 -mt-0.5">
-													   <i class="fa fa-{{ $item['icon'] }} transition-colors text-xs"></i>
+													   <i class="fa fa-{{ $item->getIcon() }} transition-colors text-xs"></i>
 												   </div>
    
-												   <span class="truncate">{{ $item['title'] }}</span>
+												   <span class="truncate">{{ $item->getTitle()}}</span>
 											   </div>
    
-											   @if(!is_null($item['badge']))
+											   @if(!is_null($item->getBadge()))
 												   <div class="leading-none pr-4">
 													   <div
 													   @class([
 														   "block px-2 py-1 text-[10px]",
-														   'bg-gray-600 text-white' => $item['active'],
-														   'bg-gray-200 text-gray-700' => !$item['active'],
-													   ])><span>{{ $item['badge'] }}</span></div>
+														   'bg-gray-600 text-white' => $item->isActive(),
+														   'bg-gray-200 text-gray-700' => !$item->isActive(),
+													   ])><span>{{ $item->getBadge() }}</span></div>
 												   </div>
 											   @endif
 										   </a>

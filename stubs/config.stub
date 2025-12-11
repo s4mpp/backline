@@ -10,6 +10,4 @@ return [
 	'middlewares' => [
 		//
 	],
-
-	'can_disable_users' => false
 ];

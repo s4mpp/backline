@@ -4,7 +4,6 @@ namespace S4mpp\Backline\Labels;
 
 use Illuminate\Support\Number;
 use S4mpp\Backline\Traits\CanSum;
-use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 final class Currency extends Label
 {
@@ -21,7 +20,7 @@ final class Currency extends Label
     {
         $value = $this->getContentAfterCallbacks();
 
-        if (!is_numeric($value)) {
+        if (! is_numeric($value)) {
             return null;
         }
 
@@ -38,7 +37,7 @@ final class Currency extends Label
     //     return $this->getRawValue();
     // }
 
-    //TODO currency do NUmber locale
+    // TODO currency do NUmber locale
     // public function formatExcel(): string
     // {
     //     return '"R$" #,##0.00_-';

@@ -9,9 +9,9 @@ final class Badge extends Label
 {
     // use HasComponent;
 
-    private ?Closure $content = null;
+    private ?Closure $content_callback = null;
 
-    private ?Closure $color = null;
+    private ?Closure $color_callback = null;
 
     public function __construct(string $title, ?string $field = null)
     {
@@ -22,14 +22,14 @@ final class Badge extends Label
 
     public function color(Closure $callback): self
     {
-        $this->color = $callback;
+        $this->color_callback = $callback;
 
         return $this;
     }
 
     public function content(Closure $callback): self
     {
-        $this->content = $callback;
+        $this->content_callback = $callback;
 
         return $this;
     }
@@ -47,8 +47,8 @@ final class Badge extends Label
     {
         $value = $this->getContentAfterCallbacks();
 
-        if ($this->content && $value) {
-            return call_user_func($this->content, $value);
+        if ($this->content_callback && $value) {
+            return call_user_func($this->content_callback, $value);
         }
 
         return $value;

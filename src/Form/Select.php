@@ -3,8 +3,8 @@
 namespace S4mpp\Backline\Form;
 
 use S4mpp\Backline\Traits\CanChangeCase;
-use S4mpp\Backline\Traits\InputCanBeAutomatable;
 use S4mpp\Backline\Traits\HasMultipleOptions;
+use S4mpp\Backline\Traits\InputCanBeAutomatable;
 
 final class Select extends FormInput
 {
@@ -18,7 +18,7 @@ final class Select extends FormInput
         $this->setComponent('backline::form.select');
     }
 
-    //TODO duplicated
+    // TODO duplicated
     // public function getContentDescription($value, bool $show_value = true)
     // {
     //     $options = $this->getOptions();

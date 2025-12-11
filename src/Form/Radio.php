@@ -9,7 +9,7 @@ use S4mpp\AdminPanel\Traits\InputCanBeAutomatable;
 final class Radio extends FormInput
 {
     // use CanBeInline, HasMultipleOptions, InputCanBeAutomatable;
-    use HasMultipleOptions, CanBeInline;
+    use CanBeInline, HasMultipleOptions;
 
     public function __construct(string $title, string $name)
     {
@@ -38,7 +38,7 @@ final class Radio extends FormInput
 
     public function boolean()
     {
-        $this->source(fn() => [
+        $this->source(fn () => [
             1 => 'Sim',
             0 => 'Não',
         ]);

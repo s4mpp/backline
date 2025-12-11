@@ -6,9 +6,6 @@ trait HasComponent
 {
     private string $component;
 
-    /**
-     * @return string
-     */
     public function getComponentName(): string
     {
         return $this->component;

@@ -10,11 +10,11 @@ trait InteractsWithFormFieldSearch
 
     private ?string $model = null;
 
-    // private array $search_in = [];
+    private array $field_search_in = [];
 
-    // private string $label = 'id';
+    private string $label = 'id';
 
-    // private ?string $subtitle = null;
+    private ?string $description = null;
 
     public function __construct(string $title, string $field)
     {
@@ -23,35 +23,35 @@ trait InteractsWithFormFieldSearch
         $this->setComponent('backline::form.search');
     }
 
-    public function label(string $label, string $subtitle)
+    public function label(string $label, string $description)
     {
         $this->label = $label;
 
-        $this->subtitle = $subtitle;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getLabel()
-    {
-        return $this->label;
-    }
+    // public function getLabel()
+    // {
+    //     return $this->label;
+    // }
 
-    public function getLabelRegister(int|string|null $id = null)
-    {
-        if (! $id) {
-            return null;
-        }
+    // public function getLabelRegister(int|string|null $id = null)
+    // {
+    //     if (! $id) {
+    //         return null;
+    //     }
 
-        $field = $this->label ?? 'id';
+    //     $field = $this->label ?? 'id';
 
-        if (! $this->model) {
-            // TODO criar AdminPanelException
-            throw new \Exception('Model não informado no Input Search ('.self::getTitle().' / '.self::getFieldName().')');
-        }
+    //     if (! $this->model) {
+    //         // TODO criar AdminPanelException
+    //         throw new \Exception('Model não informado no Input Search ('.self::getTitle().' / '.self::getFieldName().')');
+    //     }
 
-        return app($this->model)::withoutGlobalScopes()->select('id', $field)->find($id)->{$field};
-    }
+    //     return app($this->model)::withoutGlobalScopes()->select('id', $field)->find($id)->{$field};
+    // }
 
     // public function getSubTitle()
     // {
@@ -62,7 +62,7 @@ trait InteractsWithFormFieldSearch
     {
         $this->model = $model;
 
-        $this->search_in = $field;
+        $this->field_search_in = $field;
 
         return $this;
     }
@@ -74,7 +74,7 @@ trait InteractsWithFormFieldSearch
 
     // public function getSearchIn(): array
     // {
-    //     return $this->search_in;
+    //     return $this->field_search_in;
     // }
 
     public function multiple()
@@ -89,19 +89,19 @@ trait InteractsWithFormFieldSearch
         return $this->multiple;
     }
 
-    public function getData($value_selected)
-    {
-        $items = [];
+    // public function getData($value_selected)
+    // {
+    //     $items = [];
 
-        if($value_selected)  {
-            $items[ ]= [
-                'id' => $value_selected,
-                'label' => $this->getLabelRegister($value_selected),
-            ];
-        }
+    //     if($value_selected)  {
+    //         $items[ ]= [
+    //             'id' => $value_selected,
+    //             'label' => $this->getLabelRegister($value_selected),
+    //         ];
+    //     }
 
-        return $items;
-    }
+    //     return $items;
+    // }
 
     // public function getAlpineDataInputs(array|string|null $value_selected)
     // {
