@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd908c77de8642a52ff0062431ee1249",
+    "content-hash": "f2d85ca1217e3d82335870868beea5fe",
     "packages": [
         {
             "name": "brick/math",
@@ -1268,73 +1268,6 @@
             "time": "2025-11-28T18:20:11+00:00"
         },
         {
-            "name": "laravel/pint",
-            "version": "v1.26.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/pint.git",
-                "reference": "69dcca060ecb15e4b564af63d1f642c81a241d6f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/69dcca060ecb15e4b564af63d1f642c81a241d6f",
-                "reference": "69dcca060ecb15e4b564af63d1f642c81a241d6f",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "ext-tokenizer": "*",
-                "ext-xml": "*",
-                "php": "^8.2.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.90.0",
-                "illuminate/view": "^12.40.1",
-                "larastan/larastan": "^3.8.0",
-                "laravel-zero/framework": "^12.0.4",
-                "mockery/mockery": "^1.6.12",
-                "nunomaduro/termwind": "^2.3.3",
-                "pestphp/pest": "^3.8.4"
-            },
-            "bin": [
-                "builds/pint"
-            ],
-            "type": "project",
-            "autoload": {
-                "psr-4": {
-                    "App\\": "app/",
-                    "Database\\Seeders\\": "database/seeders/",
-                    "Database\\Factories\\": "database/factories/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nuno Maduro",
-                    "email": "enunomaduro@gmail.com"
-                }
-            ],
-            "description": "An opinionated code formatter for PHP.",
-            "homepage": "https://laravel.com",
-            "keywords": [
-                "dev",
-                "format",
-                "formatter",
-                "lint",
-                "linter",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/laravel/pint/issues",
-                "source": "https://github.com/laravel/pint"
-            },
-            "time": "2025-11-25T21:15:52+00:00"
-        },
-        {
             "name": "laravel/prompts",
             "version": "v0.3.8",
             "source": {
@@ -2538,59 +2471,6 @@
             "time": "2025-08-21T11:53:16+00:00"
         },
         {
-            "name": "phpstan/phpstan",
-            "version": "1.12.32",
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/2770dcdf5078d0b0d53f94317e06affe88419aa8",
-                "reference": "2770dcdf5078d0b0d53f94317e06affe88419aa8",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2|^8.0"
-            },
-            "conflict": {
-                "phpstan/phpstan-shim": "*"
-            },
-            "bin": [
-                "phpstan",
-                "phpstan.phar"
-            ],
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "PHPStan - PHP Static Analysis Tool",
-            "keywords": [
-                "dev",
-                "static analysis"
-            ],
-            "support": {
-                "docs": "https://phpstan.org/user-guide/getting-started",
-                "forum": "https://github.com/phpstan/phpstan/discussions",
-                "issues": "https://github.com/phpstan/phpstan/issues",
-                "security": "https://github.com/phpstan/phpstan/security/policy",
-                "source": "https://github.com/phpstan/phpstan-src"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/ondrejmirtes",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/phpstan",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-09-30T10:16:31+00:00"
-        },
-        {
             "name": "psr/clock",
             "version": "1.0.0",
             "source": {
@@ -3201,76 +3081,17 @@
             "time": "2025-09-04T20:59:21+00:00"
         },
         {
-            "name": "rector/rector",
-            "version": "1.2.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rectorphp/rector.git",
-                "reference": "40f9cf38c05296bd32f444121336a521a293fa61"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/40f9cf38c05296bd32f444121336a521a293fa61",
-                "reference": "40f9cf38c05296bd32f444121336a521a293fa61",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2|^8.0",
-                "phpstan/phpstan": "^1.12.5"
-            },
-            "conflict": {
-                "rector/rector-doctrine": "*",
-                "rector/rector-downgrade-php": "*",
-                "rector/rector-phpunit": "*",
-                "rector/rector-symfony": "*"
-            },
-            "suggest": {
-                "ext-dom": "To manipulate phpunit.xml via the custom-rule command"
-            },
-            "bin": [
-                "bin/rector"
-            ],
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Instant Upgrade and Automated Refactoring of any PHP code",
-            "keywords": [
-                "automation",
-                "dev",
-                "migration",
-                "refactoring"
-            ],
-            "support": {
-                "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/1.2.10"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/tomasvotruba",
-                    "type": "github"
-                }
-            ],
-            "time": "2024-11-08T13:59:10+00:00"
-        },
-        {
             "name": "s4mpp/blix-ui",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:s4mpp/blix-ui.git",
-                "reference": "afe289eac0e58938017b91c326a29735dd1f707f"
+                "reference": "7fc728fabc1c5b9d1ee009845b0a0125560b838b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/s4mpp/blix-ui/zipball/afe289eac0e58938017b91c326a29735dd1f707f",
-                "reference": "afe289eac0e58938017b91c326a29735dd1f707f",
+                "url": "https://api.github.com/repos/s4mpp/blix-ui/zipball/7fc728fabc1c5b9d1ee009845b0a0125560b838b",
+                "reference": "7fc728fabc1c5b9d1ee009845b0a0125560b838b",
                 "shasum": ""
             },
             "require": {
@@ -3280,7 +3101,6 @@
             "require-dev": {
                 "orchestra/testbench": "^9.0"
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -3343,36 +3163,36 @@
                 "s4mpp"
             ],
             "support": {
-                "source": "https://github.com/s4mpp/blix-ui/tree/master",
+                "source": "https://github.com/s4mpp/blix-ui/tree/v1.0.0",
                 "issues": "https://github.com/s4mpp/blix-ui/issues"
             },
-            "time": "2025-12-10T16:38:29+00:00"
+            "time": "2025-12-12T04:52:58+00:00"
         },
         {
             "name": "s4mpp/laravel-auth-suite",
-            "version": "v1.0.4",
+            "version": "v1.0.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:s4mpp/laravel-auth-suite.git",
-                "reference": "cca3a69508a04c6c19a99a382f96cf8e3e1f949d"
+                "reference": "c57a02f4a6d5013dfaf20d43ba5ba6112801997b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/s4mpp/laravel-auth-suite/zipball/cca3a69508a04c6c19a99a382f96cf8e3e1f949d",
-                "reference": "cca3a69508a04c6c19a99a382f96cf8e3e1f949d",
+                "url": "https://api.github.com/repos/s4mpp/laravel-auth-suite/zipball/c57a02f4a6d5013dfaf20d43ba5ba6112801997b",
+                "reference": "c57a02f4a6d5013dfaf20d43ba5ba6112801997b",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^10.0|^11.0|^12.0",
-                "laravel/pint": "^1.15",
-                "php": "^7.4|^8.0",
-                "rector/rector": "^1.2"
+                "illuminate/support": ">=10.0",
+                "php": "^7.4|^8.0"
             },
             "require-dev": {
                 "larastan/larastan": "^2.9",
+                "laravel/pint": "^1.15",
                 "orchestra/testbench": "^8.0",
                 "phpunit/phpunit": "^10.5",
-                "plannr/laravel-fast-refresh-database": "^1.2"
+                "plannr/laravel-fast-refresh-database": "^1.2",
+                "rector/rector": "^1.2"
             },
             "type": "library",
             "extra": {
@@ -3442,10 +3262,10 @@
                 "s4mpp"
             ],
             "support": {
-                "source": "https://github.com/s4mpp/laravel-auth-suite/tree/v1.0.4",
+                "source": "https://github.com/s4mpp/laravel-auth-suite/tree/v1.0.5",
                 "issues": "https://github.com/s4mpp/laravel-auth-suite/issues"
             },
-            "time": "2025-05-07T17:51:43+00:00"
+            "time": "2025-12-12T04:18:28+00:00"
         },
         {
             "name": "symfony/clock",
@@ -5870,23 +5690,23 @@
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
-            "version": "v2.3.0",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
-                "reference": "0d72ac1c00084279c1816675284073c5a337c20d"
+                "reference": "f0292ccf0ec75843d65027214426b6b163b48b41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/0d72ac1c00084279c1816675284073c5a337c20d",
-                "reference": "0d72ac1c00084279c1816675284073c5a337c20d",
+                "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/f0292ccf0ec75843d65027214426b6b163b48b41",
+                "reference": "f0292ccf0ec75843d65027214426b6b163b48b41",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
                 "php": "^7.4 || ^8.0",
-                "symfony/css-selector": "^5.4 || ^6.0 || ^7.0"
+                "symfony/css-selector": "^5.4 || ^6.0 || ^7.0 || ^8.0"
             },
             "require-dev": {
                 "phpstan/phpstan": "^2.0",
@@ -5919,9 +5739,9 @@
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "support": {
                 "issues": "https://github.com/tijsverkoyen/CssToInlineStyles/issues",
-                "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/v2.3.0"
+                "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/v2.4.0"
             },
-            "time": "2024-12-21T16:25:41+00:00"
+            "time": "2025-12-02T11:56:42+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -6423,6 +6243,73 @@
                 "source": "https://github.com/laravel/pail"
             },
             "time": "2025-11-20T16:29:35+00:00"
+        },
+        {
+            "name": "laravel/pint",
+            "version": "v1.26.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/pint.git",
+                "reference": "69dcca060ecb15e4b564af63d1f642c81a241d6f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/pint/zipball/69dcca060ecb15e4b564af63d1f642c81a241d6f",
+                "reference": "69dcca060ecb15e4b564af63d1f642c81a241d6f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-tokenizer": "*",
+                "ext-xml": "*",
+                "php": "^8.2.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.90.0",
+                "illuminate/view": "^12.40.1",
+                "larastan/larastan": "^3.8.0",
+                "laravel-zero/framework": "^12.0.4",
+                "mockery/mockery": "^1.6.12",
+                "nunomaduro/termwind": "^2.3.3",
+                "pestphp/pest": "^3.8.4"
+            },
+            "bin": [
+                "builds/pint"
+            ],
+            "type": "project",
+            "autoload": {
+                "psr-4": {
+                    "App\\": "app/",
+                    "Database\\Seeders\\": "database/seeders/",
+                    "Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nuno Maduro",
+                    "email": "enunomaduro@gmail.com"
+                }
+            ],
+            "description": "An opinionated code formatter for PHP.",
+            "homepage": "https://laravel.com",
+            "keywords": [
+                "dev",
+                "format",
+                "formatter",
+                "lint",
+                "linter",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/pint/issues",
+                "source": "https://github.com/laravel/pint"
+            },
+            "time": "2025-11-25T21:15:52+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -7324,6 +7211,59 @@
             "time": "2022-02-21T01:04:05+00:00"
         },
         {
+            "name": "phpstan/phpstan",
+            "version": "1.12.32",
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/2770dcdf5078d0b0d53f94317e06affe88419aa8",
+                "reference": "2770dcdf5078d0b0d53f94317e06affe88419aa8",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0"
+            },
+            "conflict": {
+                "phpstan/phpstan-shim": "*"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "keywords": [
+                "dev",
+                "static analysis"
+            ],
+            "support": {
+                "docs": "https://phpstan.org/user-guide/getting-started",
+                "forum": "https://github.com/phpstan/phpstan/discussions",
+                "issues": "https://github.com/phpstan/phpstan/issues",
+                "security": "https://github.com/phpstan/phpstan/security/policy",
+                "source": "https://github.com/phpstan/phpstan-src"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/ondrejmirtes",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/phpstan",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-09-30T10:16:31+00:00"
+        },
+        {
             "name": "phpunit/php-code-coverage",
             "version": "12.5.1",
             "source": {
@@ -7843,20 +7783,20 @@
         },
         {
             "name": "s4mpp/laragenius",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/s4mpp/laragenius.git",
-                "reference": "521e3f745cdd612e7da0020260afbc2da313d267"
+                "reference": "f977cd6139462b735f78e9a54fd99b125da71432"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/s4mpp/laragenius/zipball/521e3f745cdd612e7da0020260afbc2da313d267",
-                "reference": "521e3f745cdd612e7da0020260afbc2da313d267",
+                "url": "https://api.github.com/repos/s4mpp/laragenius/zipball/f977cd6139462b735f78e9a54fd99b125da71432",
+                "reference": "f977cd6139462b735f78e9a54fd99b125da71432",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "^10.0|^11.0",
+                "illuminate/support": ">=10.0",
                 "php": "^8.1"
             },
             "require-dev": {
@@ -7922,10 +7862,10 @@
             ],
             "description": "Resource generator for Laravel from DB tables",
             "support": {
-                "source": "https://github.com/s4mpp/laragenius/tree/v2.0.1",
+                "source": "https://github.com/s4mpp/laragenius/tree/v2.0.2",
                 "issues": "https://github.com/s4mpp/laragenius/issues"
             },
-            "time": "2024-12-23T19:38:03+00:00"
+            "time": "2025-12-11T18:59:06+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -9085,14 +9025,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "s4mpp/blix-ui": 20
-    },
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }

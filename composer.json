@@ -59,12 +59,13 @@
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
         "post-autoload-dump": [
             "@clear",
-            "@prepare"
+            "@prepare",
+            "@publish"
         ],
         "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
         "prepare": "@php vendor/bin/testbench package:discover --ansi",
         "build": "@php vendor/bin/testbench workbench:build --ansi",
-        "publish": "@php vendor/bin/testbench vendor:publish --tag=backline-assets",
+        "publish": "@php vendor/bin/testbench vendor:publish --tag=backline-assets --force",
         "create-config": [
             "cp workbench/config/backline.php vendor/orchestra/testbench-core/laravel/config"
         ],
