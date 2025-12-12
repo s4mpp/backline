@@ -19,7 +19,7 @@
         "php": "^8.0",
         "illuminate/support": ">=11.0",
         "s4mpp/laravel-auth-suite": "^1.0",
-        "s4mpp/blix-ui": "dev-master"
+        "s4mpp/blix-ui": "^1.0"
     },
     "require-dev": {
         "laravel/pint": "^1.26",
