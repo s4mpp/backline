@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/support": "^11.0|^12.0",
+        "illuminate/support": ">=11.0",
         "s4mpp/laravel-auth-suite": "^1.0",
         "s4mpp/blix-ui": "dev-master"
     },
